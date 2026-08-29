@@ -1,0 +1,67 @@
+% =====================================================================
+%  PLACEHOLDER --- illustrative skeleton, NOT a working paper.
+%
+%  This file will not produce real results and is not meant to compile
+%  into a finished document. It exists only to show what the `tex/`
+%  folder of a tracked project looks like. See ../tracker/INDEX.md.
+%
+%  Referenced by task T202 (Draft paper) in the tracker. The Results
+%  tables are imported from task T201, which is still blocked on T103.
+% =====================================================================
+\documentclass[12pt]{article}
+\usepackage{booktabs}
+
+\title{Commuting Time and Job Satisfaction:\\
+       Evidence from Panel Survey Data}
+\author{A.~N.~Example}
+\date{Draft --- \today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+PLACEHOLDER. This paper asks whether longer commutes predict lower job
+satisfaction, using the National Household Panel Survey (NHPS). Replace
+this abstract once the results in Section~\ref{sec:results} are final.
+\end{abstract}
+
+\section{Introduction}
+PLACEHOLDER. Motivation, contribution, and roadmap go here.
+
+\section{Data}\label{sec:data}
+PLACEHOLDER. The NHPS panel, waves 2010--2022. Missing income is imputed
+by backward-fill with a validity flag (see decision \texttt{D01} in the
+tracker); observations retain a flag distinguishing imputed from observed
+values.
+
+\section{Empirical Strategy}
+PLACEHOLDER. Baseline is a pooled OLS of job satisfaction on commute time
+with controls. As a robustness check we estimate a fixed-effects
+specification on the restricted sample of respondents observed in at least
+three waves (decision \texttt{D02}, which applies to this specification
+only --- the pooled baseline uses the full sample).
+
+\section{Results}\label{sec:results}
+PLACEHOLDER. Tables are imported from task \texttt{T201} once estimation
+is complete.
+
+\begin{table}[t]
+  \centering
+  \caption{PLACEHOLDER --- baseline estimates (to be filled from T201).}
+  \begin{tabular}{lcc}
+    \toprule
+                     & Pooled OLS & Fixed effects \\
+    \midrule
+    Commute time     & ---        & ---           \\
+    Controls         & Yes        & Yes           \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Conclusion}
+PLACEHOLDER.
+
+\bibliographystyle{plain}
+% \bibliography{refs}  % PLACEHOLDER --- no .bib file ships with this example.
+
+\end{document}
