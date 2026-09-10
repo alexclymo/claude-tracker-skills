@@ -25,9 +25,9 @@ the migration (last section) is the first item of your report, and the rest of t
 files as they are. At 3: compare the headers of INDEX (everything above `## The path forward`) and
 PRIORITIES (above `## Notes for next session`) and the CLAUDE.md block (from the line starting
 `<!-- BEGIN tracker` through `<!-- END tracker -->`) against the templates and `claude_md_block.md`.
-JOURNAL and ARCHIVE are append-only and never regenerated. If any differ, queue a regeneration for step 6 —
-replace the region, keep PRIORITIES' `*Last updated:*` date, touch nothing outside it — and say so
-in one line. It is not a finding.
+JOURNAL and ARCHIVE are append-only and never regenerated. If any differ, queue a regeneration for
+step 6 — replace the region, keep PRIORITIES' `*Last updated:*` date, touch nothing outside it — and
+say so in one line. It is not a finding.
 
 ## 3. Three looks
 
@@ -101,10 +101,9 @@ restructured. Nothing is deleted.
 A **yes** to a retirement question is the one case that sweeps: grep the retired name and its
 aliases across `tracker/`, `CLAUDE.md` and, on a deep run, code comments; mark each head or bullet
 that asserts it is current with `★ SUPERSEDED by <current thing> (YYYY-MM-DD)`, optionally followed
-by `: <one line>`; set
-rows for tasks that *are* the retired thing to `abandoned`; repoint or abandon anything `blocked`
-on them; leave Progress logs and `Recent sessions` alone — they are history. Refresh every
-`Refreshed:` date you touch.
+by `: <one line>`; set rows for tasks that *are* the retired thing to `abandoned`; repoint or
+abandon anything `blocked` on them; leave Progress logs and `Recent sessions` alone — they are
+history. Refresh every `Refreshed:` date you touch.
 
 Once, after the last approved block — or on its own yes if the human declines the walkthrough —
 apply any regeneration queued in step 2. If the region held project-specific text, say what the
@@ -128,8 +127,9 @@ then apply it only on an explicit yes.
    `## Notes` as a dated note, put it in `CLAUDE.md` below the block as a project rule, or leave it
    archived.
 3. Replace the INDEX and PRIORITIES headers by structure (step 2's regions; if the anchor heading is
-   absent, the header is everything above the first `## ` heading) with the template headers. Rewrite any INDEX or PRIORITIES bullet that cites a `D##` to point at the task or the
-   archive instead. Progress logs, `Recent sessions` and JOURNAL are history: leave them. Task
+   absent, the header is everything above the first `## ` heading) with the template headers.
+   Rewrite any INDEX or PRIORITIES bullet that cites a `D##` to point at the task or the archive
+   instead. Progress logs, `Recent sessions` and JOURNAL are history: leave them. Task
    detail files are not touched.
 4. Replace the CLAUDE.md block with `claude_md_block.md`'s, which carries `tracker-format: 3`.
    `## Project settings` is untouched.

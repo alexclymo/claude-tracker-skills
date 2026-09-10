@@ -34,7 +34,8 @@ fixes reach existing trackers.
   above 10,000 words (was 5,000); an open task's detail file is flagged only above 15,000 words (was
   3,000 / 5,000); closed tasks are never measured.
 - **What a project carries shrank.** The INDEX header is 100 words (was 450), the PRIORITIES header
-  52 (was 156), the CLAUDE.md block 455 (was 534), all counted with their title and file-type lines. The rules for maintaining the files live in the
+  52 (was 156), the CLAUDE.md block 455 (was 534), all counted with their title and file-type lines.
+  The rules for maintaining the files live in the
   skills and are read at runtime, so a fix propagates without touching existing trackers.
 - **The nine numbered invariants** became one principle — what an agent reads at session start must
   be currently true, and short enough to be read — and eleven one-line rules. The numbering only ever

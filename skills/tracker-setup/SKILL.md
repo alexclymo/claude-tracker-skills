@@ -25,8 +25,8 @@ Run `git rev-parse --is-inside-work-tree` at the project root.
 contains `Dropbox`, `iCloud`, `OneDrive`, or `Google Drive`, read `references/git_layouts.md` and
 follow it: it has the user choose a layout (A–D) and tells you what to run and which one-line
 reminder to record for step 4. Otherwise run `git init -b main`. In either case, if there is no
-`.gitignore`, write one — this is a text-and-code system, nothing it produces needs a binary in git — covering at
-least: data and model artifacts (`*.csv`, `*.parquet`, `*.h5`, `*.hdf5`, `*.pkl`, `*.npy`, `*.npz`,
+`.gitignore`, write one — this is a text-and-code system, nothing it produces needs a binary in git —
+covering at least: data and model artifacts (`*.csv`, `*.parquet`, `*.h5`, `*.hdf5`, `*.pkl`, `*.npy`, `*.npz`,
 `*.pt`, `*.pth`, `*.ckpt`, `*.onnx`), archives (`*.zip`, `*.tar`, `*.tar.gz`, `*.7z`), media
 (`*.mp4`, `*.mov`, `*.mp3`, `*.wav`), and environment clutter (`__pycache__/`, `*.pyc`, `.venv/`,
 `venv/`, `node_modules/`, `.DS_Store`, `*.log`, `.vscode/`, `.idea/`). Stage nothing yet. Mention
