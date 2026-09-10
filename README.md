@@ -115,10 +115,10 @@ how to lay things out if the project lives in a cloud-sync folder, since that ch
 choice), scaffolds `tracker/` from templates, writes a `CLAUDE.md` standing-rules block, and populates
 an initial task list from the project's code base, git history, and TODOs.
 
-**`tracker-close`** — run at the end of every session that touched a tracked project. Confirms or
-demotes every in-progress task, writes the session's state into `tracker/`, checks its own edits for
-compliance, and commits. It is quiet by design — at most eight lines of output, the last of which is
-what to pick up next session.
+**`tracker-close`** — run at the end of every session that touched a tracked project. Sets the
+status of the tasks the session worked, writes the session's state into `tracker/`, checks the two
+things it wrote, and commits. It is quiet by design — at most eight lines of output, the last of which
+is what to pick up next session.
 
 **`tracker-audit`** — run by hand, when the docs feel stale or on whatever cadence you like. Reads
 what agents actually load — `INDEX.md`, `PRIORITIES.md`, the `CLAUDE.md` block, and the detail files

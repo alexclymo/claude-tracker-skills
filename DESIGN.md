@@ -75,9 +75,9 @@ below it grows.
 ## Current state
 *Refreshed: 2026-07-15*
 
-Status: `in-progress`. Current approach: extract features batch-wise per the recipe in `## Notes`
-below, using the schema validated in `T102`. Open: the extractor does not yet handle the sparse-channel
-case surfaced in the 2026-07-14 session below.
+Status: `in-progress`. Current approach: extract features batch-wise per the recipe in this file's
+`## Notes`, using the schema validated in `T102`. Open: the extractor does not yet handle the
+sparse-channel case surfaced in the 2026-07-14 session below.
 
 ## Progress log
 
@@ -129,9 +129,9 @@ one whose top no longer describes its bottom.
 ## The one job
 
 The tracker has one job: what an agent reads at session start must be currently true, and short
-enough to be read. Everything below serves that. v2 stated the same ground as nine numbered
-invariants; v3 keeps the rules and drops the numbers, which only ever served cross-references
-between the skills. The canonical wording lives with the skills, in
+enough to be read. Everything below serves that. v2 stated most of this ground as nine numbered
+invariants; v3 rewords the rules, adds a few, and drops the numbers, which only ever served
+cross-references between the skills. The canonical wording lives with the skills, in
 [`claude_md_block.md`](skills/tracker-setup/references/claude_md_block.md), and is written into each
 project's `CLAUDE.md` from there, so a fix reaches an existing tracker instead of stopping at the
 copy it was scaffolded with. Each rule carries the failure that produced it.
@@ -201,9 +201,9 @@ block, loaded every session, tell the agent when to read and write each one:
   — then opens the `detail/T###_*.md` file for whatever task you're picking up.
 - **During the session** you talk to the agent normally, no special commands. It keeps the current
   task's detail file up to date as the work moves.
-- **At session end**, `tracker-close` writes the session's state back: it sets the status of every task the session
-  worked, refreshes their heads, rolls the oldest `Recent sessions` note into
-  `JOURNAL.md`, and commits `tracker/` separately from any code.
+- **At session end**, `tracker-close` writes the session's state back: it sets the status of every
+  task the session worked, refreshes their heads, rolls the oldest `Recent sessions` note into
+  `JOURNAL.md`, commits `tracker/` separately from any code, and says what to pick up next time.
 - **Once per project**, `tracker-setup` scaffolds the folder and writes the `CLAUDE.md` block.
 - **Now and then**, when the docs start to drift, *you* run `tracker-audit`: it reads what agents
   load, reports at most ten findings, and walks you through fixes five at a time. A retirement — one
