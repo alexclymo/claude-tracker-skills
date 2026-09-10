@@ -124,9 +124,9 @@ this up again next session." The agent will suggest good things to record, but c
 is your job. It also often seems happy to move on, where I frequently want another round of making
 the code faster or more robust.
 
-One candid warning. `DECISIONS.md` is the current weak spot of this system. Even with the recent
-improvements I am not sure how well it will hold up: in fast-moving projects it goes stale, and the
-agent will sometimes file things there that are not important, or not general enough to still be
-true a few sessions later. `tracker-audit` has been catching stale entries, and time will tell
-whether that is enough to keep it honest. Keep an eye on it. It may even need to be retired in a
-future version — we will see.
+One candid note. Earlier versions kept a separate `DECISIONS.md` ledger, and the previous edition of
+this guide warned it was the weak spot: in fast-moving projects it went stale, and the agent filed
+things there that were not important, or not general enough to still be true a few sessions later.
+That prediction held, and v3 retired it. A decision now lives where it was made — a dated note in
+the task's detail file — and the rare rule that binds the whole project is a line in `CLAUDE.md`
+that you sign off on. Less to maintain, and nothing stale gets loaded every session.

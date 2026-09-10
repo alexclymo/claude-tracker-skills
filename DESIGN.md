@@ -39,9 +39,9 @@ the top. Deliberately *not* a list of what to do next; that is `PRIORITIES.md`'s
 
 Statuses run `done` · `in-progress` · `ready` · `blocked` · `proposed` · `abandoned`. Task IDs are
 numbered by phase (`T1xx` for Phase 1) and never reused, including for abandoned work — a stable ID
-means a commit message citing `T103` stays findable forever. The `Task` column is capped at 50
-characters, because the one thing that reliably destroys a table like this is one cell growing into a
-paragraph.
+means a commit message citing `T103` stays findable forever. The `Task` column stays a name, not a
+sentence — the one thing that reliably destroys a table like this is one cell growing into a
+paragraph — but that is a writing rule, not a check; the checks are on whole files.
 
 ### `PRIORITIES.md` — what to do next
 
@@ -52,94 +52,36 @@ the next priorities, and a window of recent sessions.
 ## Next priorities
 
 - Close out `T103`'s sparse-channel handling, then start `T104`'s unit tests.
-- Once `T104` is done, start `T201` per `D03`'s pipeline recipe.
+- Once `T104` is done, start `T201` using the batching recipe noted in `detail/T103_*.md`.
 
 ## Recent sessions
 
-- **2026-07-14** — Applied `D02`'s batch cap; found the sparse-channel gap in `T103`.
+- **2026-07-14** — Capped model-B batches at 256; found the sparse-channel gap in `T103`.
 - **2026-07-10** — Scaffolded the feature extractor against `T102`'s validated schema.
 ```
 
-Every bullet is capped at 30 words and has to point at a decision, a detail file, or a task ID — a
-bullet naming nothing is already drifting away from the thing it was describing. `Recent sessions` is
-a fixed window of five: when a sixth lands, the oldest moves to `JOURNAL.md` in the same edit. It is a
-window that gets rewritten, not a list that grows.
-
-### `DECISIONS.md` — what we decided and why
-
-A ledger of current rulings, one row per decision, each row's full reasoning living in its own
-`detail/D##_*.md` file rather than in this one.
-
-```markdown
-| ID | Ruling (one line) | Scope | Set by | Ratified |
-|-----|-------------------|-------|--------|----------|
-| D01 | Backward-fill imputation with an explicit validity flag | — | claude 2026-07-19 | — |
-| D02 | Cap feature-extraction batch size at 256 | [model-B only] | human 2026-06-20 | human 2026-06-20 |
-```
-
-The **ledger** exists because reading every full rationale costs roughly the whole decision record,
-which for a mature project is thousands of words; a session reads the short ledger instead and opens
-a `detail/D##_*.md` file only when its ruling is actually relevant. Unlike `INDEX.md`, the ledger is
-overwrite-only in a stronger sense than "correct a wrong cell": a row never records history at all —
-`Set by` and `Ratified` are provenance for the *current* ruling, not a trail of who has held the pen.
-The trail lives one level down.
-
-Concretely, `Set by` records who authored the current ruling and when (`claude <date>` or `human
-<date>`), and `Ratified` records whether the human has since confirmed it (`human <date>`, or `—` if
-not). Agents make and revise rulings freely — that's not the reserved judgment here — but a
-`claude`-set ruling sits with `Ratified: —` until a human endorses it, and `tracker-close` surfaces
-any ruling that has stayed unratified across a session boundary.
-
-DECISIONS is *current policy* — what the project follows now, and who is answerable for that.
-It is deliberately not a reproducibility record of what was actually run under an earlier ruling;
-that record lives in the dated, append-only logs — `JOURNAL.md` and each task's progress log —
-which keep the true history of what happened even after the policy that governed it has changed.
-
-### `tracker/detail/D##_*.md` — one file per decision
-
-Where a ruling's full reasoning lives — the part the ledger deliberately leaves out. The file opens
-with a `## Current ruling` head over an append-only `## History`.
-
-```markdown
-## Current ruling
-*Set by: claude 2026-07-19 · Ratified: —*
-
-Backward-fill missing sensor readings, carrying an explicit validity flag on every imputed cell,
-applied uniformly across channels before feature extraction.
-
-## History
-
-### 2026-07-19 — replaced forward-fill with backward-fill + validity flag
-
-Was: forward-fill, no validity flag (set human 2026-06-02). Changed because forward-fill silently
-carried the last good reading across dropouts, which downstream feature extraction then treated as
-real signal.
-```
-
-Supersession is **edit-in-place**, the stronger form of I3. Reversing a ruling does not add a
-banner pointing elsewhere; it rewrites the detail file's `## Current ruling` head with the new
-ruling and demotes the retired one, verbatim, into that same file's append-only `## History`. A
-reader opens the file, reads the head, and is already looking at what's true — there is no `★
-superseded → D##` chain to follow, and no way to land on a dead ruling and mistake it for live
-without deliberately reading past the head into the history below it.
+Every bullet is capped at 30 words and has to point at a task ID or a detail file — a bullet naming
+nothing is already drifting away from the thing it was describing. `Recent sessions` is a fixed
+window of five: when a sixth lands, the oldest moves to `JOURNAL.md` in the same edit. It is a window
+that gets rewritten, not a list that grows.
 
 ### `tracker/detail/T###_*.md` — one file per task
 
-Where the actual work lives: goal, sub-steps, acceptance criteria, stopping criteria, and a dated
-progress log. The file opens with a `## Current state` block that is rewritten every time the log
+Where the actual work lives: goal, sub-steps, acceptance criteria, stopping criteria, notes, and a
+dated progress log. The file opens with a `## Current state` block that is rewritten every time the log
 below it grows.
 
 ```markdown
 ## Current state
 *Refreshed: 2026-07-15*
 
-Status: `in-progress`. Current approach: extract features batch-wise per `D03`'s pipeline recipe,
-using the schema validated in `T102`. Open: the extractor does not yet handle the sparse-channel
+Status: `in-progress`. Current approach: extract features batch-wise per the recipe in `## Notes`
+below, using the schema validated in `T102`. Open: the extractor does not yet handle the sparse-channel
 case surfaced in the 2026-07-14 session below.
 
 ## Progress log
 
-### 2026-07-14 — Added model-B batch cap per D02; surfaced sparse-channel gap
+### 2026-07-14 — Capped model-B batches at 256; surfaced sparse-channel gap
 
 Applied the 256-row cap for model B. Found that channels with >40% missing values behave
 unpredictably in the current recipe.
@@ -150,6 +92,13 @@ allowed to grow — it is a record of what was believed and done at the time, an
 But a long log with a summary at the top that nobody has refreshed is worse than no summary, because
 the summary is the part a reader sees first. So the head and the body are written in one operation:
 you may not grow the log without refreshing the state above it.
+
+Decisions live here too. A choice made while working a task — which imputation rule, which sample
+restriction — is a dated note in that task's `## Notes`, scope-tagged if it only holds for one model
+or regime. v2 kept a separate decisions ledger with per-decision files and a ratification column; it
+was retired in v3 because few decisions in a live project are final, agents filed facts there as
+rulings, and the ledger cost more to keep honest than it returned. A rule that genuinely binds the
+whole project is a line in `CLAUDE.md`, written with the human's say-so.
 
 ### `JOURNAL.md` and `ARCHIVE.md` — the overflow
 
@@ -162,15 +111,14 @@ without anything being lost: material moves *out*, rather than being trimmed awa
 Every file above declares its write mode on its own third line, and every skill that touches it may
 only write it that way:
 
-- **overwrite-only** (`INDEX.md`, `PRIORITIES.md`, `DECISIONS.md`'s ledger) — rewritten in place. A
-  correction replaces the claim where it stands; nothing is ever stacked above an older version. These
-  files answer "what's true right now," so they can never accumulate a stale layer underneath a
-  current one.
-- **append-only** (`JOURNAL.md`, and a detail file's `## Progress log` or `## History`) — entries added
-  at end of file, never rewritten. These are narrative, not current-state claims, so nothing about them
-  needs reconciling.
-- **headed-append** (every `detail/T###_*.md` and `detail/D##_*.md` file) — a small current-state head
-  paired with an appended body, both written in the same operation.
+- **overwrite-only** (`INDEX.md`, `PRIORITIES.md`) — rewritten in place. A correction replaces the
+  claim where it stands; nothing is ever stacked above an older version. These files answer "what's
+  true right now," so they can never accumulate a stale layer underneath a current one.
+- **append-only** (`JOURNAL.md`, and a detail file's `## Progress log`) — entries added at end of
+  file, never rewritten. These are narrative, not current-state claims, so nothing about them needs
+  reconciling.
+- **headed-append** (every `detail/T###_*.md` file) — a small current-state head paired with an
+  appended body, both written in the same operation.
 
 The point of typing files this way is not persuasion. It is that the rot becomes structurally
 unreachable rather than merely against the rules. A correction stacked above a stale claim requires an
@@ -178,38 +126,71 @@ overwrite-only file to have been written append-style — so if every skill that
 ever rewrites it, that failure has no file left to happen in. The mode doesn't ban long files; it bans
 one whose top no longer describes its bottom.
 
-## The nine invariants
+## The one job
 
-The full definitions, with the concrete failure each answers, live in
-[`skills/tracker-setup/references/invariants.md`](skills/tracker-setup/references/invariants.md) — the
-canonical source every skill cites by ID rather than restating (I1 forbids exactly that, and a design
-doc that violates the invariant it documents has no credibility). In one line each:
+The tracker has one job: what an agent reads at session start must be currently true, and short
+enough to be read. Everything below serves that. v2 stated the same ground as nine numbered
+invariants; v3 keeps the rules and drops the numbers, which only ever served cross-references
+between the skills. The canonical wording lives with the skills, in
+[`claude_md_block.md`](skills/tracker-setup/references/claude_md_block.md), and is written into each
+project's `CLAUDE.md` from there, so a fix reaches an existing tracker instead of stopping at the
+copy it was scaffolded with. Each rule carries the failure that produced it.
 
-- **I1 — one home per fact.** State files hold current truth, `DECISIONS.md` holds rationale, logs
-  hold narrative; no fact gets a second home to drift out of sync with the first.
-- **I2 — every file declares its write mode and is only ever written that way.** The mechanism above.
-- **I3 — supersession is marked at the source.** A reversal is annotated on the *original* entry, not
-  only wherever a later sweep happens to land.
-- **I4 — scope every fact that can apply to more than one context.** Once a second model or regime
-  exists, a ruling that isn't universal needs an explicit tag saying so.
-- **I5 — state files stay skimmable, enforced as aggregates.** Word caps and row limits are checked as
-  one number, not trusted to per-item restraint.
-- **I6 — status reflects reality.** Any number of tasks may be in-progress; what's illegal is
-  in-progress that nobody has re-confirmed, or a status that contradicts what another file says about
-  the same task.
-- **I7 — anchors must survive edits.** No `file:line`; anchor by symbol, section, or function name. A
-  line number goes stale silently; a symbol name stays greppable, so at least the staleness is
-  detectable.
-- **I8 — nothing dead may read as current.** No doc, comment, or task may still name a retired thing as
-  live, anywhere in the repo.
-- **I9 — a pivot triggers a sweep.** Retiring or replacing something is an event with a mandatory
-  cleanup, not a quiet edit that leaves everything else as it was.
+**Correct in place.** A wrong claim is rewritten where it stands — never annotated below it, never
+contradicted above it — and line 3 of every file names the one way that file may be written. On one
+real project a detail file's head sat untouched for two dozen sessions, and when a later decision
+retired the framing it described, nothing marked the reversal where the retired claim lived.
 
-I5 is worth a note on why it is phrased as an aggregate. Caps that ask for restraint item by item tend
-not to hold, because each individual overrun looks small and locally justified at the moment it is
-written. Caps checked as a single number at write time do hold. So the mechanical checks
-([`mechanical_checks.md`](skills/tracker-setup/references/mechanical_checks.md)) are word counts and
-row counts rather than a request to keep things brief.
+**Head before body.** A detail file's `## Current state` is rewritten every time its progress log
+grows, in the same edit. Appending feels like updating, so nobody re-read that head; by the time
+anyone looked it named a deleted function and prescribed an abandoned method. A long log under a
+stale summary is worse than no summary, because the summary is what a reader sees first.
+
+**One home per fact.** Status lives in `INDEX.md`, what-next in `PRIORITIES.md`, narrative in the
+progress log; you point at a fact rather than restate it. The same project's `INDEX.md` had grown
+paragraphs above its tables, each citing the very file its fact belonged in instead of living there.
+Two homes, and nobody's job is to notice which one has gone stale.
+
+**Short by construction.** `INDEX.md` rows are names, not sentences; `PRIORITIES.md` bullets are ≤30
+words and name a task ID or a detail file; near a cap, move something out before adding. That
+project ran the natural experiment for us: same rules, same authors, and the file-level word cap on
+`PRIORITIES.md` held completely while the per-row limit on `INDEX.md` task names failed on most rows.
+
+**Anchor by name.** Symbols, sections, function names; never `file:line`. That frozen head named a
+function long after it had been deleted — a name at least stays greppable, so the staleness is
+detectable; a line number would have pointed silently at whatever moved into its place.
+
+**Say where it applies.** A fact true only of one model, dataset, or regime carries a tag saying so,
+like `[model-B]`. The project ran several models side by side, and its largest task file — named for
+one of them — had quietly swallowed work belonging to the others, each of which already had its own
+row. A file whose edges are unmarked reads as universal, and inherits what isn't its own.
+
+**Dead things say so.** A retired approach or task is marked dead at its home, with `★ SUPERSEDED by
+<x> (date)` or status `abandoned` — never deleted, never left reading as current, and `★` is
+licensed for nothing else. That same head was eventually wrong on every axis at once with nothing
+signalling it, because the retirement had been recorded a level away, in the decisions ledger, and
+nothing carried it outward. A retirement is an event with a sweep attached, not a quiet edit.
+
+**Decisions live where they were made.** A choice made inside a task is a note in that task's detail
+file; a rule binding the whole project is a line in `CLAUDE.md`, written with the human's say-so;
+retiring something project-wide is the human's call, never an agent's inference.
+
+**Stopping criteria before autonomy.** Success condition, bailout condition and a wall-clock cap go
+into the detail file before a task is worked unsupervised — the cheapest moment to find out you
+cannot state them.
+
+**Do not restructure.** No sections added to state files, no formats converted mid-task: a tracker
+whose format stamp is older than the skill running against it is read and finished as-is, with a
+one-line note left in `PRIORITIES.md` for the human.
+
+**Commit `tracker/` separately from code.** The two move at different speeds and get reverted for
+different reasons; one commit holding both costs you the ability to undo either alone.
+
+Short-by-construction is worth a note on why its caps are aggregates. A cap that asks for restraint
+item by item tends not to hold, because each overrun looks small and locally justified at the moment
+it is written; a cap checked as a single number at write time does hold. So the mechanical checks
+([`checks.md`](skills/tracker-setup/references/checks.md)) are word counts over whole files, and the
+per-item limits that survive — a task name that stays a name — are writing rules, never measured.
 
 ## How it gets used
 
@@ -217,29 +198,26 @@ Day to day you don't manage these files by hand. The standing rules in the gener
 block, loaded every session, tell the agent when to read and write each one:
 
 - **At session start**, the agent reads `INDEX.md` and `PRIORITIES.md` — what exists and what's next
-  — then opens the `detail/T###_*.md` file for whatever task you're picking up. The `DECISIONS.md`
-  ledger is there to be scanned; a `detail/D##_*.md` file is opened only when its ruling actually
-  bears on the work.
+  — then opens the `detail/T###_*.md` file for whatever task you're picking up.
 - **During the session** you talk to the agent normally, no special commands. It keeps the current
   task's detail file up to date as the work moves.
-- **At session end**, `tracker-close` writes the session's state back: it confirms or demotes every
-  in-progress task, refreshes the state heads, rolls the oldest `Recent sessions` note into
+- **At session end**, `tracker-close` writes the session's state back: it sets the status of every task the session
+  worked, refreshes their heads, rolls the oldest `Recent sessions` note into
   `JOURNAL.md`, and commits `tracker/` separately from any code.
 - **Once per project**, `tracker-setup` scaffolds the folder and writes the `CLAUDE.md` block.
-- **Now and then**, when the docs start to drift, `tracker-audit` sweeps for stale or conflicting
-  claims, and `tracker-supersede` carries out a declared pivot — retiring one thing in favour of
-  another everywhere it is named.
+- **Now and then**, when the docs start to drift, *you* run `tracker-audit`: it reads what agents
+  load, reports at most ten findings, and walks you through fixes five at a time. A retirement — one
+  approach dead, another current — is something it asks about and sweeps on your yes; it never
+  declares one.
 
-None of the four skills run themselves; an agent has to invoke them. That is deliberate for
+None of the three skills run themselves; an agent has to invoke them. That is deliberate for
 `tracker-close` above all — a skill that can block a session's end is one people learn to route
 around, so it never refuses to close.
 
-Most decisions the agent makes and revises on its own: a `claude`-set ruling stands as current policy
-with its `Ratified` column simply recording that the human hasn't signed off yet. Two things stay the
-human's call — *ratifying* those rulings, and *originating* a pivot, the "X is dead, Y is current"
-declaration that `tracker-supersede` then sweeps out across the repo. Guessing at a pivot doesn't
-produce one bad line; it broadcasts a wrong marker everywhere at once, which is why the skill refuses
-to start without both names stated.
+The agent makes and revises decisions on its own, noting each one where it was made — in the detail
+file of the task it came up in, as the work moves. The one judgment that stays yours is declaring
+something retired: guessing at that doesn't produce one bad line, it broadcasts a wrong marker
+everywhere the sweep reaches, which is why the audit asks you and never infers.
 
 ## Notable design decisions
 
@@ -253,26 +231,53 @@ mechanically.
 
 **The agent drives; you talk in plain English.** There are no commands to memorize and no expectation
 that you edit the files by hand. The standing rules make reading and updating the tracker part of
-ordinary work, and even the four skills trigger on natural phrasing rather than a fixed syntax. It
+ordinary work, and even the three skills trigger on natural phrasing rather than a fixed syntax. It
 should feel like working with a collaborator who keeps good notes, not like operating a bug tracker.
 
 **Nothing is ever deleted.** Retired things get a banner, abandoned tasks keep their row and their
-ID, closed phases move to `ARCHIVE.md`, superseded decision rulings keep their exact wording in
-`## History`. Deleting is how a project loses the answer to "didn't we try that already?" — the
-goal is that dead things stay readable while being unmistakably marked dead.
+ID, closed phases move to `ARCHIVE.md`, and a project migrating from v2 keeps its old decisions
+verbatim in `ARCHIVE.md`. Deleting is how a project loses the answer to "didn't we try that
+already?" — the goal is that dead things stay readable while being unmistakably marked dead.
 
 **Automation handles mechanism; the human handles meaning.** The skills do the mechanical work —
 sweeping every file that names a thing, rolling old sessions into the journal, checking the word and
 row caps — but stop short of judgments. `tracker-audit` reports what looks stale and changes nothing
 until you say yes: whether a claim is *actually* stale, or whether two docs genuinely contradict, is a
 reading rather than a measurement, and a skill that silently rewrites a corpus it just misread is
-worse than no skill at all. The same line is why an agent can execute a pivot but never originate one.
+worse than no skill at all. The same line is why an agent can sweep a retirement but never declare one.
 
 **Format is versioned, migrations are opt-in.** The generated `CLAUDE.md` block carries a
 `tracker-format` stamp; each skill targets a version. A tracker older than the running skill is read
 as-is — the skills stay backward-compatible — and a migration is *suggested* at session handoff, run
 deliberately by the human through `tracker-audit`, never forced mid-task. A format change is an
-event the human opts into, not a tax the tooling imposes.
+event the human opts into, not a tax the tooling imposes. v3 also made the format cheaper to change:
+the rules agents follow live in the skills and are read at runtime, and the few lines a project
+carries — the `CLAUDE.md` block and the two state-file headers — are regenerated by `tracker-audit`.
+
+## What v3 changed, and why
+
+v2's close was slow and noisy: thirteen checks every session, then a snapshot report of every file's
+size and every check's number — long enough that it went unread, which is the same as not having run
+it. v3's close verifies only what it wrote itself, says nothing when that passes, and answers in a
+handful of lines.
+
+Audit fired too often and returned too much. Close recommended it almost every session, because "a
+file is over a size threshold" was grounds for a recommendation and a 5,000-word detail file is
+still 5,000 words the morning after an audit. The audit then swept the whole corpus with no cap on
+findings, so a stale head in a closed task's file — which nobody will open again — arrived alongside
+a stale head in tomorrow's. A list too long to act on gets half acted on, and close starts
+recommending it again. v3 scopes audit to what agents actually load, caps the report at ten findings
+ranked by what an agent would get wrong tomorrow, and walks through them five at a time.
+
+The decisions ledger is gone, for the reason given in the detail-file section above: a dedicated
+slot for rulings turned out to be a magnet, and the machinery around it cost more to keep honest
+than it returned.
+
+And the skills were rewritten for a stronger model. They had been written to persuade a fast,
+careless reader: repetition, worked reasoning, every check spelled out and argued for. A
+higher-effort model reads that differently — it executes an enumerated checklist literally and
+exhaustively, and it fills whatever space it is given. So v3 states goals, boundaries and budgets
+instead, and spends what is left on the rules that say *do not*.
 
 ## Git, and the cloud-sync caveat
 
