@@ -7,20 +7,20 @@ description: Use when the user asks to audit the task tracker, clean up the task
 
 The human's periodic sweep of a `tracker/`. Report first: nothing is edited until the human
 approves specific items, and this skill never runs unasked. It never declares a retirement — "X is
-dead, Y is current" is the human's call; the skill can only ask. Canonical templates and checks are
-in `../tracker-setup/references/`, relative to this skill's own directory.
+dead, Y is current" is the human's call; the skill can only ask. Templates and checks are in
+`../tracker-setup/references/`, relative to this skill's directory.
 
 ## 1. Scope
 
-Stop if there is no `tracker/`; this skill audits a tracker, `tracker-setup` creates one. Default
-scope is what agents actually load: `INDEX.md`, `PRIORITIES.md`, the `CLAUDE.md` tracker block, any
-doc `CLAUDE.md` says to read every session, and the `detail/T###_*.md` files of tasks whose INDEX
-status is not `done` or `abandoned`. A **deep** run, only when asked, adds closed tasks' files and
-code comments. Say the scope back in one paragraph before reading anything.
+Stop if there is no `tracker/`. Default scope is what agents load: `INDEX.md`, `PRIORITIES.md`,
+the `CLAUDE.md` tracker block, any doc `CLAUDE.md` says to read every session, and the
+`detail/T###_*.md` files of tasks whose INDEX status is not `done` or `abandoned`. A **deep** run,
+only when asked, adds closed tasks' files and code comments. State the scope in one paragraph first.
 
 ## 2. Format
 
-Read the stamp: `grep -o 'tracker-format: [0-9]*' CLAUDE.md`. No stamp means format 1. Below 3:
+Read the stamp: `grep -o 'tracker-format: [0-9]*' CLAUDE.md`. No stamp means format 1; no block at
+all is format 1 too, and the migration's step 4 adds the block. Below 3:
 the migration (last section) is the first item of your report, and the rest of the audit reads the
 files as they are. At 3: compare the headers of INDEX (everything above `## The path forward`) and
 PRIORITIES (above `## Notes for next session`) and the CLAUDE.md block (from the line starting
@@ -31,20 +31,21 @@ say so in one line. It is not a finding.
 
 ## 3. Three looks
 
-Read-only. Work inline; if the in-scope files exceed roughly 30,000 words, split the reading across
-read-only subagents (a cheaper model is enough) and merge what they return.
+Read-only. Work inline; above roughly 30,000 in-scope words, split the reading across read-only
+subagents (a cheap model suffices).
 
 - **State files against each other.** For every task PRIORITIES names, does its verb — "start",
   "pick up", "continue", "done" — match the INDEX status? Does each `## The path forward` bullet
-  still describe what the tables show? Is any row `blocked` on a task that is `done` or
-  `abandoned`? Is any `in-progress` task's detail-file `*Refreshed:*` date older than the
+  (≤10 of them) still describe what the tables show? Is any row `blocked` on a task that is `done`
+  or `abandoned`? Is any `in-progress` task's detail-file `*Refreshed:*` date older than the
   third-newest entry in `Recent sessions`?
 - **Heads against their own logs.** For each in-scope detail file, largest first: does
   `## Current state` agree with the last few Progress-log entries — status, approach, what is open,
   every file and symbol it names?
 - **Docs against code.** Grep for each function, file, and symbol that an in-scope head, the
-  CLAUDE.md block, or the README asserts is current — grep only, do not read the codebase; no hits
-  is a finding with a clean "true". Any `file:line` anchor. Any approach, model, or task the docs
+  CLAUDE.md block, or an in-scope doc asserts is current — grep only, do not read the codebase; no
+  hits is a finding with a clean "true", unless it may simply have been renamed, which makes it a
+  question. Any `file:line` anchor. Any approach, model, or task the docs
   describe as live that the code, the git log, or a later log entry shows was retired.
 
 Then the three numbers from `checks.md` — PRIORITIES words (cap 2,000), INDEX words (>10,000
@@ -53,14 +54,14 @@ only when over threshold. Closed tasks are never measured.
 
 ## 4. Report
 
-At most ten findings, ranked by one question: if an agent loaded this file tomorrow and believed
-it, what would it get wrong, and how likely is it to load the file? Two headings:
+Ten findings at most, ranked by one question: if an agent loaded this file tomorrow and believed
+it, what would it get wrong, and how likely is that? Two headings:
 
 - **Wrong** — the doc asserts something false. Each: where (file and section name, never a line
   number); what it says; what is true and how you know, from the most primary source you can reach
   — the code, the commit, the log entry — never another tracker file alone. If you cannot establish
   what is true, you have a question, not a finding.
-- **Long** — a count, with at most three files named. Nothing here is false; it only costs context.
+- **Long** — a count, with at most three files named. Nothing here is false; it costs context.
 
 Then **Questions**, at most five: what you could not establish, and each suspected retirement as a
 yes/no naming both halves with the evidence for each. A suspected retirement is never a finding;
@@ -84,7 +85,7 @@ Then stop. Nothing has been edited.
 ## 5. Walkthrough
 
 On yes: take the findings and questions in ranked order, five at a time, via `AskUserQuestion`
-(it takes at most four questions per call, so a block is two calls). Each question states the item
+(at most four questions per call, so a block is two calls). Each question states the item
 in a line and offers **fix as proposed**, **skip**, and a free answer — the human's own ruling, or
 yes/no for a retirement. Apply the block's approved items (step 6) before offering the next five.
 Stop when the human says so or the list is empty.
@@ -105,9 +106,8 @@ by `: <one line>`; set rows for tasks that *are* the retired thing to `abandoned
 abandon anything `blocked` on them; leave Progress logs and `Recent sessions` alone — they are
 history. Refresh every `Refreshed:` date you touch.
 
-Once, after the last approved block — or on its own yes if the human declines the walkthrough —
-apply any regeneration queued in step 2. If the region held project-specific text, say what the
-regeneration drops before replacing it.
+Regeneration queued in step 2 is its own yes/no question, asked once after the last block or when
+the walkthrough is declined, stating what the replaced region drops; apply it only on yes.
 
 Commit `tracker/` and `CLAUDE.md` together, code comments separately, following the project's
 `## Project settings` exactly as `tracker-close` does: layout D, or a gitignored tracker, skips the
@@ -120,8 +120,9 @@ then apply it only on an explicit yes.
 
 1. Copy the decisions record verbatim into `ARCHIVE.md` under
    `### Decisions (format v2, retired YYYY-MM-DD)`: the ledger table, then each `detail/D##_*.md`
-   in full, minus its own title line, under `#### D## — <title>`. For a format-1 tracker (inline `### D##` entries in
-   `DECISIONS.md`, no D-files) copy `DECISIONS.md` in full. Then delete `DECISIONS.md` and
+   in full under `#### D## — <title>`, minus its own title line and with its headings demoted below
+   the `####`. For a format-1 tracker (inline `### D##` entries in `DECISIONS.md`, no D-files) copy
+   `DECISIONS.md` in full. Then delete `DECISIONS.md` and
    `detail/D*.md`.
 2. List every ruling that still appears to be in force and ask, per ruling: fold it into a task's
    `## Notes` as a dated note, put it in `CLAUDE.md` below the block as a project rule, or leave it
@@ -129,10 +130,12 @@ then apply it only on an explicit yes.
 3. Replace the INDEX and PRIORITIES headers by structure (step 2's regions; if the anchor heading is
    absent, the header is everything above the first `## ` heading) with the template headers, and
    delete the italic template note under `## The path forward` if one is there. Rewrite any INDEX or
-   PRIORITIES bullet, and any open task's `## Current state`, that cites a `D##` to point at the task
-   or the archive instead, refreshing that head's date. Progress logs, other detail sections,
-   `Recent sessions` and JOURNAL are history: leave them.
-4. Replace the CLAUDE.md block with `claude_md_block.md`'s, which carries `tracker-format: 3`.
-   `## Project settings` is untouched.
+   PRIORITIES bullet, and any section of an open task's file other than its Progress log, that cites
+   a `D##` to point at the task or the archive instead, refreshing that head's date; repoint or drop
+   any link to a file this migration deleted. Progress logs, `Recent sessions` and JOURNAL are
+   history: leave their wording.
+4. Replace the CLAUDE.md block with `claude_md_block.md`'s, which carries `tracker-format: 3`;
+   `## Project settings` is untouched. Grep the rest of `CLAUDE.md` for `DECISIONS` and `D##` and
+   report any hit for the human.
 5. Commit `tracker/` and `CLAUDE.md` together, exactly as step 6 does — layout D, or a gitignored
    tracker, skips with one sentence.

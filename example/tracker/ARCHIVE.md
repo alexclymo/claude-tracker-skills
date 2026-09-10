@@ -35,7 +35,7 @@ changes; `## History` is appended, never edited. Same discipline as a task detai
 *One file per decision. This file answers "what is the current ruling and how did it get here"; the
 ledger in `DECISIONS.md` carries only its one-line summary and provenance.*
 
-## Current ruling
+##### Current ruling
 *Set by: claude 2026-07-19 · Ratified: —*
 
 Backward-fill missing income, carrying an explicit validity flag on every imputed cell, applied in
@@ -51,12 +51,12 @@ income.
 observed income across gaps, which `T103` then treated as real signal; mean-fill discarded the
 panel's temporal structure. Backward-fill + flag keeps the gap visible downstream.
 
-## History
+##### History
 
 *Appended at EOF when the ruling changes: `### YYYY-MM-DD — <what changed>`, stating the retired
 ruling and why. Never edited once written — this is the frozen record of how the decision evolved.*
 
-### 2026-07-19 — replaced forward-fill with backward-fill + validity flag
+###### 2026-07-19 — replaced forward-fill with backward-fill + validity flag
 
 Was: forward-fill, no validity flag (set human 2026-06-01). Changed because forward-fill silently
 carried stale income across gaps, which `T103` treated as real variation. The forward-fill runs are
@@ -71,7 +71,7 @@ changes; `## History` is appended, never edited. Same discipline as a task detai
 *One file per decision. This file answers "what is the current ruling and how did it get here"; the
 ledger in `DECISIONS.md` carries only its one-line summary and provenance.*
 
-## Current ruling
+##### Current ruling
 *Set by: human 2026-06-28 · Ratified: human 2026-06-28*
 
 ★ SCOPE `[spec: fixed-effects]` — this ruling binds the fixed-effects specification only. The pooled
@@ -89,4 +89,4 @@ sample so hard that the estimates lose precision.
 **Alternatives considered.** ≥2 waves (too few for a stable within estimator); a fully balanced
 panel (discards too many respondents and risks selection on attrition).
 
-## History
+##### History

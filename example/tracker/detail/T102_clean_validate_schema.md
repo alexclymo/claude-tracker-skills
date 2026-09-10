@@ -32,7 +32,6 @@ schema — from `T101`'s ingested data.
 
 Feeds `T103`, which selects modelled variables from this validated panel.
 
-
 ## Progress log
 
 ### 2026-06-15 — Cleaning and schema validation complete; reviewed by both parties

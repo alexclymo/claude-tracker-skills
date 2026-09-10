@@ -12,7 +12,7 @@ skill refuses and hands off (step 0).
 
 ## 0. Existing tracker?
 
-- `tracker/` exists: stop, say so, and invoke `tracker-audit` instead.
+- `tracker/` exists: stop, say so, and suggest the user run `tracker-audit`.
 - `tasks/` exists and `tracker/` does not: stop. Say the project uses the old `tasks/` layout,
   which these skills do not support and which is migrated by hand. Scaffold nothing.
 - Otherwise continue.
@@ -25,12 +25,12 @@ Run `git rev-parse --is-inside-work-tree` at the project root.
 contains `Dropbox`, `iCloud`, `OneDrive`, or `Google Drive`, read `references/git_layouts.md` and
 follow it: it has the user choose a layout (A–D) and tells you what to run and which one-line
 reminder to record for step 4. Otherwise run `git init -b main`. In either case, if there is no
-`.gitignore`, write one — this is a text-and-code system, nothing it produces needs a binary in git —
-covering at least: data and model artifacts (`*.csv`, `*.parquet`, `*.h5`, `*.hdf5`, `*.pkl`, `*.npy`, `*.npz`,
-`*.pt`, `*.pth`, `*.ckpt`, `*.onnx`), archives (`*.zip`, `*.tar`, `*.tar.gz`, `*.7z`), media
-(`*.mp4`, `*.mov`, `*.mp3`, `*.wav`), and environment clutter (`__pycache__/`, `*.pyc`, `.venv/`,
-`venv/`, `node_modules/`, `.DS_Store`, `*.log`, `.vscode/`, `.idea/`). Stage nothing yet. Mention
-once that you can set up a private remote if wanted; do not block on an answer.
+`.gitignore`, write one — this is a text-and-code system, nothing it produces needs a binary in
+git — covering at least: data and model artifacts (`*.csv`, `*.parquet`, `*.h5`, `*.hdf5`, `*.pkl`,
+`*.npy`, `*.npz`, `*.pt`, `*.pth`, `*.ckpt`, `*.onnx`), archives (`*.zip`, `*.tar`, `*.tar.gz`,
+`*.7z`), media (`*.mp4`, `*.mov`, `*.mp3`, `*.wav`), and environment clutter (`__pycache__/`,
+`*.pyc`, `.venv/`, `venv/`, `node_modules/`, `.DS_Store`, `*.log`, `.vscode/`, `.idea/`). Stage
+nothing yet. Mention once that you can set up a private remote if wanted; do not block on an answer.
 
 **Repo exists.** Touch nothing in git. Write the same `.gitignore` if the project has none.
 
@@ -98,8 +98,8 @@ answers: the git layout letter and its reminder (omit this bullet if no layout w
 - No `CLAUDE.md`: create it with exactly those two parts.
 - `CLAUDE.md` exists and no line starts with `<!-- BEGIN tracker`: append both parts after a blank
   line.
-- A line already starts with `<!-- BEGIN tracker`: stop and hand off to `tracker-audit`; never
-  write a second block.
+- A line already starts with `<!-- BEGIN tracker`: stop and suggest `tracker-audit`; never write
+  a second block.
 
 Locate `## Project settings` by that heading, never by "whatever follows END" — the file may carry
 the user's own sections there. If the heading exists, write into it; otherwise insert it directly

@@ -7,8 +7,8 @@
 
 Status: `blocked` on `T103`. Plan: pooled OLS of job satisfaction on commute time with controls,
 standard errors clustered by individual; a fixed-effects specification as a robustness check, run on
-the ≥3-wave restricted sample (`T103`'s Notes). Cannot start until `T103`'s estimation dataset is final — in
-particular until the sparse-income subgroup is resolved.
+the ≥3-wave restricted sample (`T103`'s Notes). Cannot start until `T103`'s estimation dataset is
+final — in particular until the sparse-income subgroup is resolved.
 
 ## Goal
 
@@ -32,7 +32,7 @@ specification as a robustness check, and export the results for the paper (`T202
 
 ## Notes
 
-The FE spec is where the ≥3-wave restriction's scope tag `[spec: fixed-effects]` applies — the pooled baseline uses the
-full sample.
+The FE spec is where the ≥3-wave restriction's scope tag `[spec: fixed-effects]` applies — the
+pooled baseline uses the full sample.
 
 ## Progress log

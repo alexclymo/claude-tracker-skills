@@ -15,7 +15,8 @@ skill uses are in `../tracker-setup/references/`, relative to this skill's own d
 
 ## 1. Statuses
 
-Set the INDEX `Status` of every task worked or discussed this session to what is now true. Name any
+Set the INDEX `Status` of every task worked or discussed this session to what is now true; a task
+raised this session gets an INDEX row and a detail file from `detail_template.md`. Name any
 other `in-progress` rows in one line without opening their files — "Still in-progress, untouched
 today: T5, T9" — so the human can demote one by replying. Rows that have gone quiet for many
 sessions are `tracker-audit`'s job, not yours.
@@ -45,6 +46,7 @@ Only the files you touched, and only speak if something fails (from
 # per detail file touched (F):
 grep -H '^\*Refreshed:' "$F"        # today's date
 grep '^## ' "$F" | tail -1          # "## Progress log"
+# once:
 wc -w tracker/PRIORITIES.md         # ≤ 2,000
 ```
 
@@ -63,8 +65,8 @@ size, and never as a general "the docs could use a look". If you saw nothing, sa
 ## 5. Commit
 
 Read `## Project settings` in `CLAUDE.md`. If the git layout is D, say in one sentence that the
-tracker's history is the sync folder's and stop here. If `tracker/` is gitignored, say the same and
-skip to code below. Otherwise:
+tracker's history is the sync folder's and stop here. If `tracker/` is gitignored, say its history
+lives outside git and skip to code below. Otherwise:
 
 ```bash
 git add tracker/ && git commit -m "<one line: what this session's tracker changes were>"

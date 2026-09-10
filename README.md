@@ -100,9 +100,12 @@ cloud-synced folder (Dropbox, iCloud, …) that you open from several machines, 
 `DESIGN.md`](DESIGN.md#git-and-the-cloud-sync-caveat) before running `tracker-setup` — the git layout
 there needs a deliberate choice.
 
-**Copy all three skill directories, not just the one you think you need.** `tracker-close` and
-`tracker-audit` read their templates and checks from `tracker-setup/references/` at runtime rather than
-carrying their own copy, and refuse to run with a clear error if that path is missing.
+**Copy all three skill directories, not just the one you think you need:** `tracker-close` and
+`tracker-audit` read their templates and checks from `tracker-setup/references/` at runtime.
+
+**Upgrading from v2:** delete the old skill directories first — `rm -r ~/.claude/skills/tracker-*`
+(or the project-local equivalent) — then copy, so that `tracker-supersede` and the retired
+reference files go with them.
 
 Then just say, in a Claude Code session at your project's root: **"set up a tracker for this
 project."** No slash command needed — each skill triggers on a handful of natural phrasings; see its
@@ -116,9 +119,9 @@ choice), scaffolds `tracker/` from templates, writes a `CLAUDE.md` standing-rule
 an initial task list from the project's code base, git history, and TODOs.
 
 **`tracker-close`** — run at the end of every session that touched a tracked project. Sets the
-status of the tasks the session worked, writes the session's state into `tracker/`, checks the two
-things it wrote, and commits. It is quiet by design — at most eight lines of output, the last of which
-is what to pick up next session.
+status of the tasks the session worked, writes the session's state into `tracker/`, checks the three
+things it wrote, and commits. It is quiet by design — at most eight lines of output, the last of
+which is what to pick up next session.
 
 **`tracker-audit`** — run by hand, when the docs feel stale or on whatever cadence you like. Reads
 what agents actually load — `INDEX.md`, `PRIORITIES.md`, the `CLAUDE.md` block, and the detail files

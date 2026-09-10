@@ -17,11 +17,18 @@ Two months of daily use said the system worked but had become expensive to run. 
 ceremony: a quiet close, a smaller audit, no decisions ledger, and rules that live in the skills so
 fixes reach existing trackers.
 
+### Added
+
+- `references/checks.md` — the four commands the skills measure with, replacing
+  `mechanical_checks.md`.
+- `references/git_layouts.md` — the cloud-sync git-layout options, moved out of `tracker-setup`
+  and read only when a sync folder is detected.
+
 ### Changed
 
 - **`tracker-close`** now writes state and stops: statuses for tasks worked, progress-log entries
-  with refreshed heads, PRIORITIES, a commit. Two checks on the files it touched, silent on pass. At
-  most eight lines of output, the last of which is what to pick up next session. It mentions
+  with refreshed heads, PRIORITIES, a commit. Three checks on the files it touched, silent on pass.
+  At most eight lines of output, the last of which is what to pick up next session. It mentions
   `tracker-audit` only when it saw a concrete contradiction it may not fix — never because a file is
   long.
 - **`tracker-audit`** is human-run only and reads what agents actually load: INDEX, PRIORITIES, the

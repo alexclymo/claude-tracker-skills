@@ -38,11 +38,12 @@ when.
 **D01 folded in from the retired decisions ledger** (2026-09-10): backward-fill missing income,
 carrying an explicit validity flag on every imputed cell, applied in this ingest step before the
 panel is cleaned; the flag propagates into `T103`'s estimation dataset so each specification can
-distinguish imputed income from observed income. Set by claude 2026-07-19, not yet human-ratified —
-confirm before relying on it in the writeup. Alternatives considered: forward-fill (the original
-rule, set human 2026-06-01, replaced because it silently carried stale income across gaps that
-`T103` then treated as real variation) and mean-fill (discarded the panel's temporal structure).
-Full text preserved in `ARCHIVE.md` under `### Decisions (format v2, retired 2026-09-10)`.
+distinguish imputed income from observed income. Chosen by Claude on 2026-07-19 and not yet
+confirmed by the human — confirm before relying on it in the writeup. Alternatives considered:
+forward-fill (the original rule, set human 2026-06-01, replaced because it silently carried stale
+income across gaps that `T103` then treated as real variation) and mean-fill (discarded the panel's
+temporal structure). Full text preserved in `ARCHIVE.md` under
+`### Decisions (format v2, retired 2026-09-10)`.
 
 ## Progress log
 

@@ -240,8 +240,8 @@ verbatim in `ARCHIVE.md`. Deleting is how a project loses the answer to "didn't 
 already?" — the goal is that dead things stay readable while being unmistakably marked dead.
 
 **Automation handles mechanism; the human handles meaning.** The skills do the mechanical work —
-sweeping every file that names a thing, rolling old sessions into the journal, checking the word and
-row caps — but stop short of judgments. `tracker-audit` reports what looks stale and changes nothing
+sweeping every file that names a thing, rolling old sessions into the journal, checking the word
+caps — but stop short of judgments. `tracker-audit` reports what looks stale and changes nothing
 until you say yes: whether a claim is *actually* stale, or whether two docs genuinely contradict, is a
 reading rather than a measurement, and a skill that silently rewrites a corpus it just misread is
 worse than no skill at all. The same line is why an agent can sweep a retirement but never declare one.

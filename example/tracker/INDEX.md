@@ -7,8 +7,8 @@ What exists and what state it's in. What to do next is `PRIORITIES.md`.
 Status: `done` · `in-progress` · `ready` · `blocked` · `proposed` · `abandoned` (kept, never
 deleted). `R:Human` / `R:Claude`: `ok` once that party reviewed the row; review never gates `done`.
 IDs number by phase (`T1xx`, `T2xx`), never reused. Task names ≤50 characters; detail belongs in
-the detail file. Path-forward bullets ≤30 words, each naming a task. Closed phases move to
-`ARCHIVE.md`. Maintenance rules live in the `tracker-*` skills.
+the detail file. ≤10 path-forward bullets of ≤30 words, each naming a task. Closed phases move to
+`ARCHIVE.md`. Rules: the `tracker-*` skills.
 
 ## The path forward
 
