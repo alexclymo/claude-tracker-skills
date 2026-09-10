@@ -2,35 +2,29 @@
 
 *File type: **headed-append** — the head below is rewritten whenever the body grows. Never append without refreshing it.*
 
-*One detail file per task. If this log starts covering more than one task ID, the task has become
-an umbrella — split it into one file per child rather than letting this one grow to cover all of
-them. Size: `tracker-close` warns at ~3,000 words and flags for splitting at ~5,000.*
-
 ## Current state
-*Refreshed: 2026-07-19*
+*Refreshed: 2026-09-10*
 
 Status: `in-progress`. Assembling the estimation dataset from `T102`'s validated panel: constructing
 the outcome (job satisfaction), the key regressor (commute time), and controls, and attaching
-`D01`'s imputation validity flags. Two extracts are built — a full-sample extract for the pooled
-baseline and a restricted extract for the fixed-effects spec, which applies `D02`'s ≥3-wave sample.
+the imputation validity flags from `T101`. Two extracts are built — a full-sample extract for the
+pooled baseline and a restricted extract for the fixed-effects spec, which applies the ≥3-wave
+restriction in this file's Notes.
 Open: a sparse-income subgroup (respondents missing income in >40% of their waves) is unstable under
 the current construction — see the 2026-07-12 log entry.
-
-*This section is rewritten in place every time the log below grows — it is the one place in this
-file that must never go stale. If it stops matching the log, the log becomes the only place a
-reader can find current truth, which is exactly the failure this format exists to prevent.*
 
 ## Goal
 
 Produce the analysis dataset `T201`'s baseline regression consumes: one row per respondent-wave with
-the outcome, commute time, controls, and `D01`'s validity flags.
+the outcome, commute time, controls, and `T101`'s imputation validity flags.
 
 ## Sub-steps
 
 - Select modelled variables from `T102`'s validated panel.
 - Construct derived controls (age band, log income, hours, industry).
-- Attach `D01`'s imputation validity flags.
-- Build the FE-spec extract under `D02`'s ≥3-wave restriction; leave the pooled extract unrestricted.
+- Attach `T101`'s imputation validity flags.
+- Build the FE-spec extract under the ≥3-wave restriction (Notes); leave the pooled extract
+  unrestricted.
 - Write the dataset and a manifest recording the source-panel hash and the code revision.
 
 ## Acceptance criteria
@@ -49,8 +43,13 @@ the outcome, commute time, controls, and `D01`'s validity flags.
 
 ## Notes
 
-`D02`'s ≥3-wave restriction is scoped `[spec: fixed-effects]` — apply it only to the FE-spec extract,
-never to the pooled baseline.
+**≥3-wave sample restriction** `[spec: fixed-effects]` (set and ratified by the human 2026-06-28;
+folded in from the retired decisions ledger 2026-09-10): restrict the fixed-effects estimation sample
+to respondents observed in at least three waves. Binds the FE specification only — the pooled
+baseline (`T201`) uses the full sample. Applied here when building the FE-spec extract. Alternatives
+considered: ≥2 waves (too few for a stable within estimator); a fully balanced panel (discards too
+many respondents and risks selection on attrition). Full text in `ARCHIVE.md` under
+`### Decisions (format v2, retired 2026-09-10)`.
 
 ## Progress log
 

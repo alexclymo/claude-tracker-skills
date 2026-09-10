@@ -2,10 +2,6 @@
 
 *File type: **headed-append** — the head below is rewritten whenever the body grows. Never append without refreshing it.*
 
-*One detail file per task. If this log starts covering more than one task ID, the task has become
-an umbrella — split it into one file per child rather than letting this one grow to cover all of
-them. Size: `tracker-close` warns at ~3,000 words and flags for splitting at ~5,000.*
-
 ## Current state
 *Refreshed: 2026-07-12*
 

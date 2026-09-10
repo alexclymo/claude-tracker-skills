@@ -2,12 +2,8 @@
 
 *File type: **headed-append** — the head below is rewritten whenever the body grows. Never append without refreshing it.*
 
-*One detail file per task. If this log starts covering more than one task ID, the task has become
-an umbrella — split it into one file per child rather than letting this one grow to cover all of
-them. Size: `tracker-close` warns at ~3,000 words and flags for splitting at ~5,000.*
-
 ## Current state
-*Refreshed: 2026-06-15*
+*Refreshed: 2026-09-10*
 
 Status: `done`, reviewed by both parties. Cleaned the long panel from `T101` and validated it
 against a documented schema: types coerced, out-of-range values caught, wave coverage checked. A
@@ -35,6 +31,7 @@ schema — from `T101`'s ingested data.
 ## Notes
 
 Feeds `T103`, which selects modelled variables from this validated panel.
+
 
 ## Progress log
 
