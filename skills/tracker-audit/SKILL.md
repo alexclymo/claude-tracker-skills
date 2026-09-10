@@ -20,14 +20,14 @@ only when asked, adds closed tasks' files and code comments. State the scope in 
 ## 2. Format
 
 Read the stamp: `grep -o 'tracker-format: [0-9]*' CLAUDE.md`. No stamp means format 1; no block at
-all is format 1 too, and the migration's step 4 adds the block. Below 3:
-the migration (last section) is the first item of your report, and the rest of the audit reads the
-files as they are. At 3: compare the headers of INDEX (everything above `## The path forward`) and
-PRIORITIES (above `## Notes for next session`) and the CLAUDE.md block (from the line starting
-`<!-- BEGIN tracker` through `<!-- END tracker -->`) against the templates and `claude_md_block.md`.
-JOURNAL and ARCHIVE are append-only and never regenerated. If any differ, queue a regeneration for
-step 6 — replace the region, keep PRIORITIES' `*Last updated:*` date, touch nothing outside it — and
-say so in one line. It is not a finding.
+all is format 1 too, and the migration's step 4 adds the block. Below 3: the migration (last
+section) is the first item of your report, and the rest of the audit reads the files as they are. At
+3: compare the headers of INDEX (everything above `## The path forward`) and PRIORITIES (above `##
+Notes for next session`) and the CLAUDE.md block (from the line starting `<!-- BEGIN tracker`
+through `<!-- END tracker -->`) against the templates and `claude_md_block.md`. JOURNAL and ARCHIVE
+are append-only and never regenerated. If any differ, queue a regeneration for step 6 — replace the
+region, keep PRIORITIES' `*Last updated:*` date, touch nothing outside it — and say so in one line.
+It is not a finding.
 
 ## 3. Three looks
 
@@ -45,8 +45,8 @@ subagents (a cheap model suffices).
 - **Docs against code.** Grep for each function, file, and symbol that an in-scope head, the
   CLAUDE.md block, or an in-scope doc asserts is current — grep only, do not read the codebase; no
   hits is a finding with a clean "true", unless it may simply have been renamed, which makes it a
-  question. Any `file:line` anchor. Any approach, model, or task the docs
-  describe as live that the code, the git log, or a later log entry shows was retired.
+  question. Any `file:line` anchor. Any approach, model, or task the docs describe as live that the
+  code, the git log, or a later log entry shows was retired.
 
 Then the three numbers from `checks.md` — PRIORITIES words (cap 2,000), INDEX words (>10,000
 suggests archiving closed phases), the largest open-task detail files (>15,000 words) — mentioned
@@ -115,15 +115,14 @@ commit with one sentence; push where close would (layouts B, C, or unset, with a
 
 ## Migration to format 3
 
-Offered whenever the stamp is below 3. Show this plan filled in with the project's actual files,
-then apply it only on an explicit yes.
+Offered whenever the stamp is below 3. Show this plan filled in for the project, then apply it only
+on an explicit yes.
 
 1. Copy the decisions record verbatim into `ARCHIVE.md` under
    `### Decisions (format v2, retired YYYY-MM-DD)`: the ledger table, then each `detail/D##_*.md`
    in full under `#### D## — <title>`, minus its own title line and with its headings demoted below
-   the `####`. For a format-1 tracker (inline `### D##` entries in `DECISIONS.md`, no D-files) copy
-   `DECISIONS.md` in full. Then delete `DECISIONS.md` and
-   `detail/D*.md`.
+   the `####`. For a format-1 tracker (inline `### D##` entries, no D-files) copy `DECISIONS.md` in
+   full. Then delete `DECISIONS.md` and `detail/D*.md`.
 2. List every ruling that still appears to be in force and ask, per ruling: fold it into a task's
    `## Notes` as a dated note, put it in `CLAUDE.md` below the block as a project rule, or leave it
    archived.
@@ -134,8 +133,8 @@ then apply it only on an explicit yes.
    a `D##` to point at the task or the archive instead, refreshing that head's date; repoint or drop
    any link to a file this migration deleted. Progress logs, `Recent sessions` and JOURNAL are
    history: leave their wording.
-4. Replace the CLAUDE.md block with `claude_md_block.md`'s, which carries `tracker-format: 3`;
-   `## Project settings` is untouched. Grep the rest of `CLAUDE.md` for `DECISIONS` and `D##` and
-   report any hit for the human.
+4. Replace the CLAUDE.md block with `claude_md_block.md`'s, which carries `tracker-format: 3`, or
+   add it after the project's own text if there is none; `## Project settings` is untouched. Grep
+   the rest of `CLAUDE.md` for `DECISIONS` and `D##`; report hits.
 5. Commit `tracker/` and `CLAUDE.md` together, exactly as step 6 does — layout D, or a gitignored
    tracker, skips with one sentence.

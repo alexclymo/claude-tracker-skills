@@ -1,10 +1,8 @@
 **How skills use this file.** A `CLAUDE.md` *has* the block if some line **starts with**
 `<!-- BEGIN tracker` — a prefix match, never byte-exact, because the BEGIN line carries a note.
-`<!-- END tracker -->` is byte-exact. `tracker-setup` copies the block verbatim and then writes
-`## Project settings` *after* the END marker, filled with the project's own answers.
-`tracker-audit` regenerates only what sits between the markers and never touches anything after
-`<!-- END tracker -->`. Read the format stamp with `grep -o 'tracker-format: [0-9]*'`; a block with
-no stamp is format 1. This note is documentation for the skills, not part of the block.
+`<!-- END tracker -->` is byte-exact. `tracker-setup` copies the block verbatim, then writes
+`## Project settings` *after* the END marker. `tracker-audit` regenerates only what sits between the
+markers. This note is documentation for the skills, not part of the block.
 
 ---
 

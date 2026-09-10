@@ -7,7 +7,8 @@ the record — the phase's full task table moves here, verbatim, leaving only a 
 behind in `INDEX.md`.
 
 Entries: `### Phase N — <name> (closed YYYY-MM-DD)`, each holding the closed phase's complete task
-table exactly as it last read in `INDEX.md`.
+table exactly as it last read in `INDEX.md`. A tracker migrated from format 2 also holds one
+`### Decisions (format v2, retired YYYY-MM-DD)` entry with its old decisions verbatim.
 
 ### Phase 0 — Environment setup (closed 2026-05-30)
 
