@@ -20,7 +20,7 @@ private/
 /CLAUDE.md
 
 # Dogfooded tracker — kept local + Dropbox only, never pushed to the public repo.
-# Deliberately untracked: Dropbox is its version history. tracker-close/supersede
-# skip their commit step (see CLAUDE.md standing-rules block).
+# Deliberately untracked: Dropbox is its version history, so tracker-close and
+# tracker-audit skip their commit step for it (recorded in the root CLAUDE.md, also untracked).
 # Anchored to root so example/tracker/ (a public worked example) is committed normally.
 /tracker/

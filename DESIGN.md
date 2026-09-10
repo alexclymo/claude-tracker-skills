@@ -114,17 +114,18 @@ only write it that way:
 - **overwrite-only** (`INDEX.md`, `PRIORITIES.md`) — rewritten in place. A correction replaces the
   claim where it stands; nothing is ever stacked above an older version. These files answer "what's
   true right now," so they can never accumulate a stale layer underneath a current one.
-- **append-only** (`JOURNAL.md`, and a detail file's `## Progress log`) — entries added at end of
-  file, never rewritten. These are narrative, not current-state claims, so nothing about them needs
-  reconciling.
+- **append-only** (`JOURNAL.md`, `ARCHIVE.md`, and a detail file's `## Progress log`) — entries added
+  at end of file, never rewritten. These are narrative, not current-state claims, so nothing about
+  them needs reconciling.
 - **headed-append** (every `detail/T###_*.md` file) — a small current-state head paired with an
   appended body, both written in the same operation.
 
-The point of typing files this way is not persuasion. It is that the rot becomes structurally
-unreachable rather than merely against the rules. A correction stacked above a stale claim requires an
-overwrite-only file to have been written append-style — so if every skill that opens `INDEX.md` only
-ever rewrites it, that failure has no file left to happen in. The mode doesn't ban long files; it bans
-one whose top no longer describes its bottom.
+The point of typing files this way is not persuasion. It is that each kind of rot is tied to one way
+of writing a file, so a writer that keeps to the declared mode has nowhere left to produce it. A
+correction stacked above a stale claim requires an overwrite-only file to have been written
+append-style — so if every skill that opens `INDEX.md` only ever rewrites it, that failure has no
+file left to happen in. The mode doesn't ban long files; it bans one whose top no longer describes
+its bottom.
 
 ## The one job
 
@@ -132,9 +133,10 @@ The tracker has one job: what an agent reads at session start must be currently 
 enough to be read. Everything below serves that. v2 stated most of this ground as nine numbered
 invariants; v3 rewords the rules, adds a few, and drops the numbers, which only ever served
 cross-references between the skills. The canonical wording lives with the skills, in
-[`claude_md_block.md`](skills/tracker-setup/references/claude_md_block.md), and is written into each
-project's `CLAUDE.md` from there, so a fix reaches an existing tracker instead of stopping at the
-copy it was scaffolded with. Each rule carries the failure that produced it.
+[`claude_md_block.md`](skills/tracker-setup/references/claude_md_block.md), and is copied into each
+project's `CLAUDE.md`. When the canonical text changes, `tracker-audit` offers to regenerate the
+copy, so a fix reaches an existing tracker the next time its owner runs an audit and says yes. Each
+rule carries the failure that produced it.
 
 **Correct in place.** A wrong claim is rewritten where it stands — never annotated below it, never
 contradicted above it — and line 3 of every file names the one way that file may be written. On one
@@ -234,10 +236,11 @@ that you edit the files by hand. The standing rules make reading and updating th
 ordinary work, and even the three skills trigger on natural phrasing rather than a fixed syntax. It
 should feel like working with a collaborator who keeps good notes, not like operating a bug tracker.
 
-**Nothing is ever deleted.** Retired things get a banner, abandoned tasks keep their row and their
-ID, closed phases move to `ARCHIVE.md`, and a project migrating from v2 keeps its old decisions
-verbatim in `ARCHIVE.md`. Deleting is how a project loses the answer to "didn't we try that
-already?" — the goal is that dead things stay readable while being unmistakably marked dead.
+**Nothing is ever lost.** Retired things get a banner, abandoned tasks keep their row and their ID,
+closed phases move to `ARCHIVE.md`, and a project migrating from v2 has its old decisions copied
+verbatim into `ARCHIVE.md` before the old files are removed. Losing the record is how a project
+loses the answer to "didn't we try that already?" — the goal is that dead things stay readable while
+being unmistakably marked dead.
 
 **Automation handles mechanism; the human handles meaning.** The skills do the mechanical work —
 sweeping every file that names a thing, rolling old sessions into the journal, checking the word
@@ -281,7 +284,7 @@ instead, and spends what is left on the rules that say *do not*.
 
 ## Git, and the cloud-sync caveat
 
-The tracker leans on git, and `tracker-setup` will initialize a repo if the project doesn't already
+The tracker leans on git, and `tracker-setup` will initialise a repo if the project doesn't already
 have one. This is worth doing: because every session's work gets committed — `tracker/` separately
 from code — you and the agent can both work more freely. A bad edit is one revert away, and the diff
 of what changed is always there to inspect. The agent drives the mechanics, so it asks little git

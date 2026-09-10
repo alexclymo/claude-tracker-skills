@@ -16,7 +16,7 @@ What to do now. Read after `INDEX.md`. Bullets ≤30 words, each naming a task I
 
 ## Next priorities
 
-- Finish `T103`: resolve the sparse-income subgroup, then finalise the estimation dataset.
+- Finish `T103`: resolve the sparse-income subgroup, then finalize the estimation dataset.
 - Once `T103` closes, start `T201`'s pooled and FE specifications — remember the ≥3-wave sample
   restriction (`detail/T103_build_regression_dataset.md`'s Notes) applies to the FE spec only.
 

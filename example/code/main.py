@@ -3,7 +3,7 @@
 This module sketches the data pipeline for the example project. Nothing
 here runs: every function raises NotImplementedError. It exists only to
 show what the `code/` folder of a tracked project looks like, and how code
-can reference the tracker's tasks and decisions by ID.
+can reference the tracker's tasks by ID.
 
 Pipeline stages map onto tracker tasks:
     load_panel        -> T101  (ingest survey panel data)
@@ -11,9 +11,10 @@ Pipeline stages map onto tracker tasks:
     build_dataset     -> T103  (build regression dataset)
     estimate_baseline -> T201  (estimate baseline regression; blocked on T103)
 
-Design decisions referenced below:
-    D01  backward-fill income imputation with a validity flag
-    D02  restrict the fixed-effects sample to respondents in >= 3 waves
+Modelling choices referenced below live as dated notes in the tasks that
+made them (../tracker/detail/, section "Notes"):
+    T101  backward-fill income imputation with a validity flag
+    T103  restrict the fixed-effects sample to respondents in >= 3 waves
 
 See ../tracker/INDEX.md for the full picture.
 """
@@ -25,7 +26,7 @@ def load_panel(path):
     """T101 -- load the raw NHPS extract into a tidy long panel.
 
     Missing income is imputed by backward-fill, carrying a validity flag
-    on every imputed cell, per decision D01. The flag propagates downstream
+    on every imputed cell, per the rule in T101's notes. The flag propagates downstream
     so later stages can tell imputed income from observed income.
     """
     raise NotImplementedError("placeholder -- example project, not runnable")
@@ -44,9 +45,9 @@ def build_dataset(panel, spec="pooled"):
     """T103 -- assemble the estimation dataset (one row per person-wave).
 
     Builds the outcome, the key regressor (commute time), and controls, and
-    attaches D01's validity flags. For spec="fixed_effects", restricts to
-    respondents observed in >= 3 waves (decision D02); spec="pooled" uses
-    the full sample.
+    attaches T101's validity flags. For spec="fixed_effects", restricts to
+    respondents observed in >= 3 waves (per T103's notes); spec="pooled"
+    uses the full sample.
     """
     raise NotImplementedError("placeholder -- example project, not runnable")
 

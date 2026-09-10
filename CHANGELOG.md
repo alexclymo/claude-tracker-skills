@@ -19,7 +19,7 @@ fixes reach existing trackers.
 
 ### Added
 
-- `references/checks.md` — the four commands the skills measure with, replacing
+- `references/checks.md` — the handful of commands the skills measure with, replacing
   `mechanical_checks.md`.
 - `references/git_layouts.md` — the cloud-sync git-layout options, moved out of `tracker-setup`
   and read only when a sync folder is detected.
@@ -40,10 +40,10 @@ fixes reach existing trackers.
 - **Thresholds** are more generous: no per-cell or header-prose checks; INDEX suggests archiving
   above 10,000 words (was 5,000); an open task's detail file is flagged only above 15,000 words (was
   3,000 / 5,000); closed tasks are never measured.
-- **What a project carries shrank.** The INDEX header is 100 words (was 450), the PRIORITIES header
+- **What a project carries shrank.** The INDEX header is 99 words (was 450), the PRIORITIES header
   52 (was 156), the CLAUDE.md block 455 (was 534), all counted with their title and file-type lines.
-  The rules for maintaining the files live in the
-  skills and are read at runtime, so a fix propagates without touching existing trackers.
+  The rules for maintaining the files live in the skills and are read at runtime, so a fix
+  propagates without touching existing trackers.
 - **The nine numbered invariants** became one principle — what an agent reads at session start must
   be currently true, and short enough to be read — and eleven one-line rules. The numbering only ever
   served cross-references between skills.
@@ -64,8 +64,8 @@ fixes reach existing trackers.
 
 Run `tracker-audit` in a v2 project. It shows the plan, archives the decisions, replaces the two
 state-file headers and the CLAUDE.md block, stamps `tracker-format: 3`, and commits — only on your
-yes. Progress logs are left as written; an open task's other sections
-have any `D##` citation re-pointed.
+yes. Progress logs are left as written; an open task's other sections have any `D##` citation
+re-pointed.
 
 ## v2 — 2026-07-21
 

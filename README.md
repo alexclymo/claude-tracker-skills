@@ -45,9 +45,10 @@ Notes like these rot in predictable ways. A correction gets appended below the s
 corrects, so the wrong version is still what a reader sees first. A summary at the top of a file stops
 matching the log beneath it. Keeping that rot in check is most of what the three skills do.
 
-Finally, the system makes the agent automatically log all its work using git, so that you can always
-confidently let the agent work knowing you can roll back mistakes. This is handled by the agent, so
-no in-depth knowledge of how to use git is required. It is optional but highly recommended.
+Finally, the system has the agent commit its work with git, so that anything committed can be rolled
+back. Commits land at session close, so the safety net is per session, not per edit. The agent drives
+git, so day to day you need little git knowledge; recovering from a bad commit is where some fluency
+helps. Git is optional but highly recommended.
 
 ## Who this is for
 
@@ -90,8 +91,15 @@ into line. It reports what it found and walks you through the fixes five questio
 
 ## Install
 
-Copy the skills to your user-level skills directory if you want them available across all your
-projects. Or into a single project's `.claude/skills/` instead, if you would rather keep them scoped
+Clone this repo and copy the skills to your user-level skills directory if you want them available
+across all your projects:
+
+```bash
+git clone https://github.com/alexclymo/claude-tracker-skills.git
+cp -r claude-tracker-skills/skills/* ~/.claude/skills/
+```
+
+Or copy them into a single project's `.claude/skills/` instead, if you would rather keep them scoped
 to one project.
 
 If you installed them at the user level and work from more than one computer, install them on each —
@@ -107,21 +115,26 @@ there needs a deliberate choice.
 (or the project-local equivalent) — then copy, so that `tracker-supersede` and the retired
 reference files go with them.
 
+**What the skills do to git without asking:** `tracker-setup` makes one commit of `tracker/` and
+`CLAUDE.md`; `tracker-close` commits `tracker/` at every session end and pushes when the project's
+recorded git layout says to. Only history rewrites ever prompt. Decide whether you want that before
+installing.
+
 Then just say, in a Claude Code session at your project's root: **"set up a tracker for this
 project."** No slash command needed — each skill triggers on a handful of natural phrasings; see its
 own description for the exact ones.
 
 ## The three skills
 
-**`tracker-setup`** — run once per project. Checks for a git repo and initializes one if needed (asking
+**`tracker-setup`** — run once per project. Checks for a git repo and initialises one if needed (asking
 how to lay things out if the project lives in a cloud-sync folder, since that changes the safe
 choice), scaffolds `tracker/` from templates, writes a `CLAUDE.md` standing-rules block, and populates
 an initial task list from the project's code base, git history, and TODOs.
 
 **`tracker-close`** — run at the end of every session that touched a tracked project. Sets the
-status of the tasks the session worked, writes the session's state into `tracker/`, checks the three
-things it wrote, and commits. It is quiet by design — at most eight lines of output, the last of
-which is what to pick up next session.
+status of the tasks the session worked, writes the session's state into `tracker/`, checks the head
+dates, the log positions, and the PRIORITIES word cap, and commits. It is quiet by design — at most
+eight lines of output, the last of which is what to pick up next session.
 
 **`tracker-audit`** — run by hand, when the docs feel stale or on whatever cadence you like. Reads
 what agents actually load — `INDEX.md`, `PRIORITIES.md`, the `CLAUDE.md` block, and the detail files
@@ -152,10 +165,10 @@ runs — the folder exists so you can read a real tracker before scaffolding you
 
 ## Not Claude Code's built-in task tools
 
-This is unrelated to Claude Code's in-session task tools — `TaskCreate`/`TaskList` and
-`~/.claude/tasks/`. Those are scoped to a single conversation and nothing written there survives past
-it. `tracker/` is a durable, git-tracked record meant to outlive any one session — which is why these
-skills are named `tracker-*` rather than `task-*`, specifically to avoid that collision.
+This is unrelated to Claude Code's in-session task tools, `TaskCreate` / `TaskList`. Those are scoped
+to a single conversation and nothing written there survives past it. `tracker/` is a durable,
+git-tracked record meant to outlive any one session — which is why these skills are named
+`tracker-*` rather than `task-*`, specifically to avoid that collision.
 
 ## Design
 
@@ -164,19 +177,18 @@ job the whole thing serves.
 
 ## Status
 
-The basic tracker system is something I've been using and refining for a few months across a handful
-of my own projects. It seems to work well and is nice to work with. Claude naturally uses the system
-to store important information, and you can pick up tasks without having to explain every time what
-you're working on.
+The basic tracker system has been in daily use on my own projects for several months and is nice to
+work with: Claude uses it naturally to store what matters, and you can pick up tasks without
+re-explaining them every session.
 
-The skills are newer and haven't been road-tested much yet. They were made because the original
-system was suffering from bloated and stale task documents: context was getting overloaded (tens of
-thousands of tokens loaded just from the task docs, degrading agent performance), and stale,
-conflicting information was being quietly loaded into context, causing agents to make mistakes or
-repeat ones I thought I'd corrected. I have tightened the rules on how large the task files can
-grow, and introduced these skills to periodically force myself and the agent to go through and tidy
-up the documents. Format v3 (September 2026) cut the ceremony back after two months of daily use: a
-quieter close, a smaller audit, and no decisions ledger.
+The skills arrived in July 2026 with format v2. They were made because the original system was
+suffering from bloated and stale task documents: context was getting overloaded (tens of thousands
+of tokens loaded just from the task docs, degrading agent performance), and stale, conflicting
+information was being quietly loaded into context, causing agents to make mistakes or repeat ones I
+thought I'd corrected. I have tightened the rules on how large the task files can grow, and
+introduced these skills to periodically force myself and the agent to go through and tidy up the
+documents. Format v3 (September 2026) cut the ceremony back after two months of daily use of those
+skills: a quieter close, a smaller audit, and no decisions ledger.
 
 [`CHANGELOG.md`](CHANGELOG.md) records what has changed and when. The version numbers there are
 tracker *format* versions rather than a release count, so the first public release was v2 and the

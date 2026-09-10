@@ -124,9 +124,8 @@ this up again next session." The agent will suggest good things to record, but c
 is your job. It also often seems happy to move on, where I frequently want another round of making
 the code faster or more robust.
 
-One candid note. Earlier versions kept a separate `DECISIONS.md` ledger, and the previous edition of
-this guide warned it was the weak spot: in fast-moving projects it went stale, and the agent filed
-things there that were not important, or not general enough to still be true a few sessions later.
-That prediction held, and v3 retired it. A decision now lives where it was made — a dated note in
-the task's detail file — and the rare rule that binds the whole project is a line in `CLAUDE.md`
-that you sign off on. Less to maintain, and nothing stale gets loaded every session.
+One candid note. Earlier versions kept a separate `DECISIONS.md` ledger. In fast-moving projects it
+went stale, and the agent filed things there that were not important, or not general enough to still
+be true a few sessions later, so v3 retired it. A decision now lives where it was made — a dated
+note in the task's detail file — and the rare rule that binds the whole project is a line in
+`CLAUDE.md` that you sign off on. Less to maintain, and nothing stale gets loaded every session.

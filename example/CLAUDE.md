@@ -50,9 +50,7 @@ task's detail file as the work moves, so nothing is lost if the session ends wit
 
 ## Project settings
 
-Chosen once at setup, not generated from the invariants above — this project's own preferences, not
-universal rules. This section sits after `<!-- END tracker -->`, so regenerating the block above
-never touches it.
+Chosen once at setup; never regenerated.
 
 - **Code changes on close:** ask — `tracker-close` asks each time whether to commit code changes.
   (`tracker/` and code are always committed separately.)
