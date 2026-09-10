@@ -51,11 +51,10 @@ task's detail file as the work moves, so nothing is lost if the session ends wit
 
 ## Project settings
 
-Chosen once at setup, not generated — this project's own preferences. This section sits after
-`<!-- END tracker -->`, so regenerating the block never touches it.
+Chosen once at setup; never regenerated.
 
 - **Git layout:** <A/B/C/D plus its one-line reminder from `git_layouts.md` — omit this bullet if
-  the project was never in a cloud-sync folder>
+  no layout was chosen at setup>
 - **Code changes on close:** <auto/ask/never> — `tracker/` and code are always committed
   separately, even under auto.
 - **Working relationship** (optional): <≤80 words, or omit the bullet>

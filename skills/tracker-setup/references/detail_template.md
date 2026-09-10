@@ -43,11 +43,6 @@ model.
 
 ## Progress log
 
-### 2026-07-10 — Scaffolded extractor against validated schema from T102
-
-Implemented the base extraction pass; the batch cap was not yet needed (model B was the only
-consumer at the time).
-
 ### 2026-07-14 — Added model-B batch cap; surfaced sparse-channel gap
 
 Applied the 256-row cap for model B. Found that channels with >40% missing values behave

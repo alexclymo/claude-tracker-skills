@@ -43,10 +43,10 @@ error to the sync client, only to git, later.
 - **B:** plain `git init -b main`, inside the sync folder as normal.
 - **C:** run A's command on *this* machine; tell the user every other machine needs its own
   `git init -b main --separate-git-dir=...` pointed outside its own sync folder, plus a shared
-  remote (point 5 below can set that up now).
+  remote (`tracker-setup` offers to set one up).
 - **D:** run no git command at all. Tell the user plainly that `tracker/` will not be under
-  version control and sync history is the only history from here on; `.gitignore` is still
-  worth writing (point 3) for editor/tooling hygiene even without git.
+  version control and sync history is the only history from here on; a `.gitignore` is still
+  worth writing for editor/tooling hygiene even without git.
 
 ## The reminder written into `## Project settings`
 
