@@ -111,12 +111,12 @@ Layout D (no git): skip this step; say once that `tracker/` and `CLAUDE.md` exis
 not under version control. Otherwise stage only what this skill created:
 
 ```bash
-git add tracker/ CLAUDE.md
+git add tracker/ CLAUDE.md          # plus .gitignore, if step 1 wrote it
 git diff --cached --stat
 ```
 
-The stat should show four `tracker/*.md` files, the detail files you wrote, and `CLAUDE.md`, a few
-tens of KB in total. If anything else is staged, stop and investigate. Then:
+The stat should show four `tracker/*.md` files, the detail files you wrote, `CLAUDE.md` and possibly
+`.gitignore`, a few tens of KB in total. If anything else is staged, stop and investigate. Then:
 
 ```bash
 git commit -m "Set up tracker/: scaffold task system"

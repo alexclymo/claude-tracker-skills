@@ -120,17 +120,18 @@ then apply it only on an explicit yes.
 
 1. Copy the decisions record verbatim into `ARCHIVE.md` under
    `### Decisions (format v2, retired YYYY-MM-DD)`: the ledger table, then each `detail/D##_*.md`
-   in full under `#### D## — <title>`. For a format-1 tracker (inline `### D##` entries in
+   in full, minus its own title line, under `#### D## — <title>`. For a format-1 tracker (inline `### D##` entries in
    `DECISIONS.md`, no D-files) copy `DECISIONS.md` in full. Then delete `DECISIONS.md` and
    `detail/D*.md`.
 2. List every ruling that still appears to be in force and ask, per ruling: fold it into a task's
    `## Notes` as a dated note, put it in `CLAUDE.md` below the block as a project rule, or leave it
    archived.
 3. Replace the INDEX and PRIORITIES headers by structure (step 2's regions; if the anchor heading is
-   absent, the header is everything above the first `## ` heading) with the template headers.
-   Rewrite any INDEX or PRIORITIES bullet that cites a `D##` to point at the task or the archive
-   instead. Progress logs, `Recent sessions` and JOURNAL are history: leave them. Task
-   detail files are not touched.
+   absent, the header is everything above the first `## ` heading) with the template headers, and
+   delete the italic template note under `## The path forward` if one is there. Rewrite any INDEX or
+   PRIORITIES bullet, and any open task's `## Current state`, that cites a `D##` to point at the task
+   or the archive instead, refreshing that head's date. Progress logs, other detail sections,
+   `Recent sessions` and JOURNAL are history: leave them.
 4. Replace the CLAUDE.md block with `claude_md_block.md`'s, which carries `tracker-format: 3`.
    `## Project settings` is untouched.
 5. Commit `tracker/` and `CLAUDE.md` together, exactly as step 6 does — layout D, or a gitignored
