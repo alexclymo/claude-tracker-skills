@@ -64,7 +64,8 @@ fixes reach existing trackers.
 
 Run `tracker-audit` in a v2 project. It shows the plan, archives the decisions, replaces the two
 state-file headers and the CLAUDE.md block, stamps `tracker-format: 3`, and commits — only on your
-yes. Task detail files are not touched.
+yes. Progress logs are left as written; an open task's other sections
+have any `D##` citation re-pointed.
 
 ## v2 — 2026-07-21
 

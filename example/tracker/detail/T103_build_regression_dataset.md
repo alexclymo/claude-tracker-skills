@@ -43,7 +43,7 @@ the outcome, commute time, controls, and `T101`'s imputation validity flags.
 
 ## Notes
 
-**≥3-wave sample restriction** `[spec: fixed-effects]` (set and ratified by the human 2026-06-28;
+**≥3-wave sample restriction** `[spec: fixed-effects]` (chosen by the human 2026-06-28;
 folded in from the retired decisions ledger 2026-09-10): restrict the fixed-effects estimation sample
 to respondents observed in at least three waves. Binds the FE specification only — the pooled
 baseline (`T201`) uses the full sample. Applied here when building the FE-spec extract. Alternatives
