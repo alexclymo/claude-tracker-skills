@@ -74,8 +74,8 @@ git add tracker/ && git commit -m "<one line: what this session's tracker change
 
 Then code, per the recorded preference: `auto` — commit changes outside `tracker/` as a second,
 separate commit; `ask` — ask once; `never` — leave them. Never fold code into the tracker commit.
-Push if the layout is B, C, or unset and a remote exists; never for layout A. A plain commit or push
-needs no permission; only history rewrites do.
+Push whenever a remote exists, on any layout, unless `## Project settings` says not to. A plain
+commit or push needs no permission; only history rewrites do.
 
 ## Output
 

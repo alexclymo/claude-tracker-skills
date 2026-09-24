@@ -51,7 +51,8 @@ error to the sync client, only to git, later.
 ## The reminder written into `## Project settings`
 
 - A: "One machine; git database lives outside the sync folder via an absolute-path pointer —
-  this repo will not work from a second machine without redoing setup there."
+  this repo will not work from a second machine without redoing setup there. A remote, if added,
+  is the history's only off-machine copy; `tracker-close` pushes to it."
 - B: "Several machines; git database lives inside the sync folder — let sync finish before
   switching machines, never work from two at once. Check sync status before starting work each
   session; this catches divergence, it does not make multi-machine editing safe."

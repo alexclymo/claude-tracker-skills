@@ -111,7 +111,7 @@ the walkthrough is declined, stating what the replaced region drops; apply it on
 
 Commit `tracker/` and `CLAUDE.md` together, code comments separately, following the project's
 `## Project settings` exactly as `tracker-close` does: layout D, or a gitignored tracker, skips the
-commit with one sentence; push where close would (layouts B, C, or unset, with a remote).
+commit with one sentence; push where close would.
 
 ## Migration to format 3
 

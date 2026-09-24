@@ -17,6 +17,13 @@ Two months of daily use said the system worked but had become expensive to run. 
 ceremony: a quiet close, a smaller audit, no decisions ledger, and rules that live in the skills so
 fixes reach existing trackers.
 
+### Fixed — 2026-09-24
+
+- **`tracker-close` now pushes on layout A.** It pushed only for layouts B, C, or unset, so a
+  one-machine project with a remote let that remote go stale — and on A the remote is the history's
+  only off-machine copy. Close now pushes whenever a remote exists, unless `## Project settings`
+  says not to; `tracker-audit` follows it.
+
 ### Added
 
 - `references/checks.md` — the handful of commands the skills measure with, replacing

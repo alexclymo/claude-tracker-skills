@@ -116,9 +116,9 @@ there needs a deliberate choice.
 reference files go with them.
 
 **What the skills do to git without asking:** `tracker-setup` makes one commit of `tracker/` and
-`CLAUDE.md`; `tracker-close` commits `tracker/` at every session end and pushes when the project's
-recorded git layout says to. Only history rewrites ever prompt. Decide whether you want that before
-installing.
+`CLAUDE.md`; `tracker-close` commits `tracker/` at every session end and pushes whenever the project
+has a remote, unless its `## Project settings` say not to. Only history rewrites ever prompt. Decide
+whether you want that before installing.
 
 Then just say, in a Claude Code session at your project's root: **"set up a tracker for this
 project."** No slash command needed — each skill triggers on a handful of natural phrasings; see its
