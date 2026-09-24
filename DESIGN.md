@@ -313,3 +313,26 @@ remote copy on GitHub for safety. When away from the office, I work on or view m
 devices using Dropbox — while talking to Claude over remote — and these files get instantly synced
 back to my always-on machine via Dropbox, where Claude Code then deals with the git history
 automatically as part of its tracker process.
+
+## Private repos, and publishing
+
+The system assumes a private repo, or one shared only with close collaborators. Everything that
+makes it work leans that way: the agent commits at every close without asking, the tracker records
+people, paths, dead ends and half-formed ideas as they happen, and the history is there to revert
+to. A public repo needs the opposite default — every commit read before it leaves the machine,
+because once pushed it is permanent. One default cannot serve both, so the skills pick private and
+say so.
+
+The question is settled once, up front. `tracker-setup` asks whether the repo is private or public
+— or reads the answer from GitHub — and records it in `CLAUDE.md`'s Project settings. From then on
+the skills only read that line: a private repo is committed and pushed every session with no
+questions, and a public one is never pushed. A project set up before this rule is asked once, the
+first time close or audit needs the answer. Where the remote is on GitHub, close also checks before
+pushing, which catches a repo flipped public after setup. Elsewhere the recorded answer stands, and
+changing visibility without updating it is on the user.
+
+For a public repo, setup offers three ways on: make it private (recommended); keep `tracker/` out of
+git entirely, so only reviewed code is ever committed; or don't use the tracker there. And the way
+to publish work is never to flip the working repo public — its whole history goes with it — but to
+make a new repo and publish a clean copy of the finished work: the code release or replication
+package, not the notebook it came out of.

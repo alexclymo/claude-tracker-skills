@@ -53,6 +53,8 @@ Chosen once at setup; never regenerated.
 
 - **Git layout:** <A/B/C/D plus its one-line reminder from `git_layouts.md` — omit this bullet if
   no layout was chosen at setup>
+- **Repo visibility:** <`private` (close pushes) or `public` (`tracker/` local only, never
+  pushed); omit for layout D>
 - **Code changes on close:** <auto/ask/never> — `tracker/` and code are always committed
   separately, even under auto.
 - **Working relationship** (optional): <≤80 words, or omit the bullet>

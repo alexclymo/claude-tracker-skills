@@ -30,9 +30,17 @@ git — covering at least: data and model artifacts (`*.csv`, `*.parquet`, `*.h5
 `*.npy`, `*.npz`, `*.pt`, `*.pth`, `*.ckpt`, `*.onnx`), archives (`*.zip`, `*.tar`, `*.tar.gz`,
 `*.7z`), media (`*.mp4`, `*.mov`, `*.mp3`, `*.wav`), and environment clutter (`__pycache__/`,
 `*.pyc`, `.venv/`, `venv/`, `node_modules/`, `.DS_Store`, `*.log`, `.vscode/`, `.idea/`). Stage
-nothing yet. Mention once that you can set up a private remote if wanted; do not block on an answer.
+nothing yet.
 
 **Repo exists.** Touch nothing in git. Write the same `.gitignore` if the project has none.
+
+**Visibility — settled once, here** (skip for layout D). Warn plainly: this system is built for a
+private repo, shared at most with close collaborators — the agent commits unasked and the tracker
+logs people, paths and half-formed ideas. For public production work, make a new repo with a clean
+copy; never flip this one public, as its whole history goes too. Use `gh repo view --json
+visibility` if it answers; else ask: private or public, now or once a remote exists? If public,
+offer: make it private (recommended); keep `tracker/` local only (gitignore it, code `ask`, never
+pushed); or stop.
 
 ## 2. Scan for tasks
 
@@ -93,7 +101,8 @@ Then read `references/claude_md_block.md` and write two things, in order: its bl
 starting `<!-- BEGIN tracker` through `<!-- END tracker -->`, verbatim — and, **after** the END
 marker, that file's `## Project settings` stub with its placeholders replaced by this project's
 answers: the git layout letter and its reminder (omit this bullet if no layout was chosen in step
-1), the code-commit preference, and the working-relationship note (omit if skipped).
+1), the repo visibility from step 1, the code-commit preference, and the working-relationship note
+(omit if skipped).
 
 - No `CLAUDE.md`: create it with exactly those two parts.
 - `CLAUDE.md` exists and no line starts with `<!-- BEGIN tracker`: append both parts after a blank
@@ -127,6 +136,5 @@ This is the only commit this skill makes. The project's own code stays as git le
 ## What this leaves behind
 
 `tracker/` is now the project's source of truth, and the `CLAUDE.md` block puts its rules in
-context every session without anyone invoking anything. Everything else is invoked, not standing:
-`tracker-close` at the end of each session, `tracker-audit` when the human asks for it. Neither
-runs itself.
+context every session without anyone invoking anything. Everything else is invoked:
+`tracker-close` at each session end, `tracker-audit` when the human asks. Neither runs itself.

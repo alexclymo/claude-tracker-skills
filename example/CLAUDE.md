@@ -52,6 +52,7 @@ task's detail file as the work moves, so nothing is lost if the session ends wit
 
 Chosen once at setup; never regenerated.
 
+- **Repo visibility:** private — `tracker-close` commits and pushes every session.
 - **Code changes on close:** ask — `tracker-close` asks each time whether to commit code changes.
   (`tracker/` and code are always committed separately.)
 - **Working relationship:** You are helping with an empirical economics paper on commuting and job

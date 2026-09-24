@@ -5,9 +5,9 @@ description: Use when the user asks to audit the task tracker, clean up the task
 
 # tracker-audit
 
-The human's periodic sweep of a `tracker/`. Report first: nothing is edited until the human
-approves specific items, and this skill never runs unasked. It never declares a retirement — "X is
-dead, Y is current" is the human's call; the skill can only ask. Templates and checks are in
+The human's periodic sweep of a `tracker/`, never run unasked. Report first: nothing is edited
+until the human approves specific items. It never declares a retirement — "X is dead, Y is current"
+is the human's call; the skill can only ask. Templates and checks are in
 `../tracker-setup/references/`, relative to this skill's directory.
 
 ## 1. Scope
@@ -111,7 +111,8 @@ the walkthrough is declined, stating what the replaced region drops; apply it on
 
 Commit `tracker/` and `CLAUDE.md` together, code comments separately, following the project's
 `## Project settings` exactly as `tracker-close` does: layout D, or a gitignored tracker, skips the
-commit with one sentence; push where close would.
+commit with one sentence; push only if `Repo visibility` is `private` — if missing, ask once and
+record it.
 
 ## Migration to format 3
 

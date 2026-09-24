@@ -17,12 +17,19 @@ Two months of daily use said the system worked but had become expensive to run. 
 ceremony: a quiet close, a smaller audit, no decisions ledger, and rules that live in the skills so
 fixes reach existing trackers.
 
-### Fixed — 2026-09-24
+### 2026-09-24 — private repos only
 
-- **`tracker-close` now pushes on layout A.** It pushed only for layouts B, C, or unset, so a
-  one-machine project with a remote let that remote go stale — and on A the remote is the history's
-  only off-machine copy. Close now pushes whenever a remote exists, unless `## Project settings`
-  says not to; `tracker-audit` follows it.
+- **The system now says plainly that it is for private repos**, or ones shared only with close
+  collaborators, and advises a new repo for any public production work. A new README section and a
+  `DESIGN.md` section give the reasoning.
+- **`tracker-setup` settles repo visibility once**, reading it from GitHub where it can, warns
+  plainly, and records `Repo visibility` in `## Project settings`. A public repo is offered three
+  paths: make it private, keep `tracker/` out of git, or don't use the tracker.
+- **`tracker-close` pushes only a repo recorded as private**, on any layout — fixing layout A, where
+  a one-machine project's remote went stale though it is the history's only off-machine copy. On
+  GitHub it checks visibility before pushing. `tracker-audit` follows the same rule.
+- Projects set up earlier are asked the visibility question once, by whichever of close or audit
+  first needs it. No format change: Project settings sit outside the tracker block.
 
 ### Added
 

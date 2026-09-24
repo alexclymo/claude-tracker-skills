@@ -58,6 +58,25 @@ overkill for a weekend project, where the scaffolding costs more than it returns
 too basic for larger or more advanced software projects, which will likely want something more
 capable than a folder of markdown files.
 
+## Private repos only
+
+**Use this system in a private repo, or one shared only with close collaborators — not in a public
+one.** The whole design assumes nobody else is reading along. The agent commits its work at every
+session close without asking, and the tracker is a candid working log: half-formed ideas, dead ends,
+file paths on your machine, the names of coauthors and students. That candour is what makes it
+useful, and it is exactly what you don't want published. A public repo needs every commit read
+before it leaves your machine — the opposite default.
+
+When you want to make work public — a code release, a replication package — make a **new** repo and
+publish a clean copy of the finished work there. Don't flip your working repo to public: its entire
+history goes with it, including everything ever committed and later deleted.
+
+`tracker-setup` asks once whether the repo is private or public and records the answer in
+`CLAUDE.md`, so the question never comes up day to day. In a private repo, `tracker-close` commits
+and pushes every session. On a public repo, setup offers to keep `tracker/` out of git entirely, and
+the skills never push. This repo is that exception: it is public because the skills are, and its
+own tracker never enters git.
+
 ## What it is for, and what it isn't
 
 The point of this system is to let Claude Code work more autonomously while you stay firmly in the
@@ -116,9 +135,9 @@ there needs a deliberate choice.
 reference files go with them.
 
 **What the skills do to git without asking:** `tracker-setup` makes one commit of `tracker/` and
-`CLAUDE.md`; `tracker-close` commits `tracker/` at every session end and pushes whenever the project
-has a remote, unless its `## Project settings` say not to. Only history rewrites ever prompt. Decide
-whether you want that before installing.
+`CLAUDE.md`; `tracker-close` commits `tracker/` at every session end and, in a repo recorded as
+private, pushes to its remote. Only history rewrites ever prompt. Decide whether you want that before
+installing.
 
 Then just say, in a Claude Code session at your project's root: **"set up a tracker for this
 project."** No slash command needed — each skill triggers on a handful of natural phrasings; see its

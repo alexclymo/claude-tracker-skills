@@ -65,8 +65,9 @@ size, and never as a general "the docs could use a look". If you saw nothing, sa
 ## 5. Commit
 
 Read `## Project settings` in `CLAUDE.md`. If the git layout is D, say in one sentence that the
-tracker's history is the sync folder's and stop here. If `tracker/` is gitignored, say its history
-lives outside git and skip to code below. Otherwise:
+tracker's history is the sync folder's and stop here. No `Repo visibility` line: ask once, private
+or public, and record it there, to commit with `tracker/`. If `tracker/` is gitignored, say its
+history lives outside git and skip to code below. Otherwise:
 
 ```bash
 git add tracker/ && git commit -m "<one line: what this session's tracker changes were>"
@@ -74,8 +75,9 @@ git add tracker/ && git commit -m "<one line: what this session's tracker change
 
 Then code, per the recorded preference: `auto` — commit changes outside `tracker/` as a second,
 separate commit; `ask` — ask once; `never` — leave them. Never fold code into the tracker commit.
-Push whenever a remote exists, on any layout, unless `## Project settings` says not to. A plain
-commit or push needs no permission; only history rewrites do.
+Push only when `Repo visibility` is `private` and a remote exists — but not if `gh repo view
+--json visibility` says `PUBLIC`; then say so in one line. A plain commit or push needs no
+permission; only history rewrites do.
 
 ## Output
 

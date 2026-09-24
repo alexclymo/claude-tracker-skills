@@ -6,10 +6,10 @@ project from more than one computer?", and apply the one the user picks. Never c
 
 ## Why this needs a choice
 
-A `.git` directory syncs like any other folder, but git's object store is not designed for that: a
-sync client can write a partial object mid-commit, two devices can converge on conflicting copies
-of the same ref, or a sync event can simply delete `.git` outright — and none of this looks like an
-error to the sync client, only to git, later.
+A `.git` directory syncs like any other folder, but git's object store is not built for that: a
+sync client can write a partial object mid-commit, two devices can converge on conflicting refs, or
+a sync can delete `.git` outright — none of which the sync client sees as an error; only git
+notices, later.
 
 ## The four options
 
@@ -29,17 +29,16 @@ error to the sync client, only to git, later.
   demands clean setup on every machine and disciplined pull-before/push-after every session.
   **Strongly discouraged** — easy to get subtly wrong. Gitignored material does NOT travel this
   way.
-- **D — no git at all.** Sync history is the only history. Always available, and the honest
-  choice for someone not comfortable with git. Costs: no traceability, no revert, and
+- **D — no git at all.** Sync history is the only history. Always available; the honest choice
+  for someone not at ease with git. Costs: no traceability, no revert, and
   `tracker-close` loses its commit duty.
 
 ## Applying the choice
 
 - **A:** `mkdir -p "$HOME/git-repos" && git init -b main --separate-git-dir="$HOME/git-repos/<project-name>.git"`.
-  Tell the user plainly what this does: working files stay in the project folder and keep
-  syncing normally; `.git` there becomes a small pointer *file* reading `gitdir:
-  $HOME/git-repos/<project-name>.git`; the real object database lives outside the sync folder
-  entirely.
+  Tell the user plainly: working files stay in the project folder and keep syncing normally;
+  `.git` there becomes a small pointer *file* reading `gitdir: $HOME/git-repos/<project-name>.git`;
+  the real object database lives outside the sync folder entirely.
 - **B:** plain `git init -b main`, inside the sync folder as normal.
 - **C:** run A's command on *this* machine; tell the user every other machine needs its own
   `git init -b main --separate-git-dir=...` pointed outside its own sync folder, plus a shared
@@ -51,8 +50,7 @@ error to the sync client, only to git, later.
 ## The reminder written into `## Project settings`
 
 - A: "One machine; git database lives outside the sync folder via an absolute-path pointer —
-  this repo will not work from a second machine without redoing setup there. A remote, if added,
-  is the history's only off-machine copy; `tracker-close` pushes to it."
+  this repo will not work from a second machine without redoing setup there."
 - B: "Several machines; git database lives inside the sync folder — let sync finish before
   switching machines, never work from two at once. Check sync status before starting work each
   session; this catches divergence, it does not make multi-machine editing safe."
