@@ -152,8 +152,9 @@ an initial task list from the project's code base, git history, and TODOs.
 
 **`tracker-close`** — run at the end of every session that touched a tracked project. Sets the
 status of the tasks the session worked, writes the session's state into `tracker/`, checks the head
-dates, the log positions, and the PRIORITIES word cap, and commits. It is quiet by design — at most
-eight lines of output, the last of which is what to pick up next session.
+dates, the log positions, and the PRIORITIES word cap, and commits — pushing too, in a repo recorded
+as private. It is quiet by design — at most eight lines of output, the last of which is what to pick
+up next session.
 
 **`tracker-audit`** — run by hand, when the docs feel stale or on whatever cadence you like. Reads
 what agents actually load — `INDEX.md`, `PRIORITIES.md`, the `CLAUDE.md` block, and the detail files

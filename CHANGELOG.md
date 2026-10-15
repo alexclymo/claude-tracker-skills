@@ -17,7 +17,7 @@ Two months of daily use said the system worked but had become expensive to run. 
 ceremony: a quiet close, a smaller audit, no decisions ledger, and rules that live in the skills so
 fixes reach existing trackers.
 
-### 2026-09-24 — private repos only
+### 2026-10-15 — private repos only
 
 - **The system now says plainly that it is for private repos**, or ones shared only with close
   collaborators, and advises a new repo for any public production work. A new README section and a
