@@ -20,6 +20,9 @@ been worked on for longer and longer, the task docs have tended to get too large
 conflicting information. That is what the new skills are for, and it is certainly the area where this
 system could use the most experimentation and improvement.
 
+The system should work with other agents, but has been primarily tested with Claude Code. See
+[`OTHER-AGENTS.md`](OTHER-AGENTS.md).
+
 Very much a work in progress — I'd be delighted if anyone uses or improves it, and comments are very
 welcome.
 
