@@ -143,6 +143,10 @@ Then just say, in a Claude Code session at your project's root: **"set up a trac
 project."** No slash command needed — each skill triggers on a handful of natural phrasings; see its
 own description for the exact ones.
 
+**Other agents (Codex, etc.):** the skills are plain Markdown and run elsewhere with light setup —
+installing them where your agent looks, and making sure it loads the tracker's instructions block at
+the start of each session. See [`OTHER-AGENTS.md`](OTHER-AGENTS.md).
+
 ## The three skills
 
 **`tracker-setup`** — run once per project. Checks for a git repo and initialises one if needed (asking
