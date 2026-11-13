@@ -23,16 +23,16 @@ Run `git rev-parse --is-inside-work-tree` at the project root.
 
 **No repo yet.** Take `<project-name>` as the basename of the project's absolute path. If that path
 contains `Dropbox`, `iCloud`, `OneDrive`, or `Google Drive`, read `references/git_layouts.md` and
-follow it: it has the user choose a layout (A–D) and tells you what to run and which one-line
-reminder to record for step 4. Otherwise run `git init -b main`. In either case, if there is no
-`.gitignore`, write one — this is a text-and-code system, nothing it produces needs a binary in
-git — covering at least: data and model artifacts (`*.csv`, `*.parquet`, `*.h5`, `*.hdf5`, `*.pkl`,
-`*.npy`, `*.npz`, `*.pt`, `*.pth`, `*.ckpt`, `*.onnx`), archives (`*.zip`, `*.tar`, `*.tar.gz`,
-`*.7z`), media (`*.mp4`, `*.mov`, `*.mp3`, `*.wav`), and environment clutter (`__pycache__/`,
-`*.pyc`, `.venv/`, `venv/`, `node_modules/`, `.DS_Store`, `*.log`, `.vscode/`, `.idea/`). Stage
-nothing yet.
+follow it: the user picks a layout (A–D), and it says what to run and which reminder to record
+for step 4. Otherwise run `git init -b main`. In either case, if there is no `.gitignore`, write
+one — nothing this system produces needs a binary in git — covering at least: data and model
+artifacts (`*.csv`, `*.parquet`, `*.h5`, `*.hdf5`, `*.pkl`, `*.npy`, `*.pt`, `*.ckpt`), archives
+(`*.zip`, `*.tar.gz`), media (`*.mp4`, `*.mov`, `*.mp3`, `*.wav`), and environment clutter
+(`__pycache__/`, `*.pyc`, `.venv/`, `venv/`, `node_modules/`, `.DS_Store`, `*.log`, `.vscode/`,
+`.idea/`). Stage nothing yet.
 
-**Repo exists.** Touch nothing in git. Write the same `.gitignore` if the project has none.
+**Repo exists.** Touch nothing in git. Write the same `.gitignore` if the project has none. If the
+path contains a sync-folder name, follow `git_layouts.md`'s `## Existing repo`.
 
 **Visibility — settled once, here** (skip for layout D). Warn plainly: this system is built for a
 private repo, shared at most with close collaborators — the agent commits unasked and the tracker

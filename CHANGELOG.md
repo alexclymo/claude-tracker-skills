@@ -17,6 +17,14 @@ Two months of daily use said the system worked but had become expensive to run. 
 ceremony: a quiet close, a smaller audit, no decisions ledger, and rules that live in the skills so
 fixes reach existing trackers.
 
+### 2026-11-13 — existing repos in a sync folder
+
+- **`tracker-setup` now warns about an existing repo in a cloud-sync folder.** Before, the
+  git-layout question was asked only when setup created the repo itself, so the commonest case, an
+  existing project in Dropbox or iCloud, never saw the warning. Setup still changes nothing in git:
+  it asks, records a layout and its reminder, and for a one-machine project with `.git` inside the
+  sync folder suggests moving the database out by hand.
+
 ### 2026-10-15 — private repos only
 
 - **The system now says plainly that it is for private repos**, or ones shared only with close

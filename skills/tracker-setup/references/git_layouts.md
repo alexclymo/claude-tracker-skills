@@ -3,22 +3,15 @@
 Read by `tracker-setup` only when the project's absolute path contains `Dropbox`, `iCloud`,
 `OneDrive`, or `Google Drive`. Present the four options compactly, ask "Will you work on this
 project from more than one computer?", and apply the one the user picks. Never choose for them.
-
-## Why this needs a choice
-
-A `.git` directory syncs like any other folder, but git's object store is not built for that: a
-sync client can write a partial object mid-commit, two devices can converge on conflicting refs, or
-a sync can delete `.git` outright — none of which the sync client sees as an error; only git
-notices, later.
+The hazard: a sync client can corrupt or delete `.git` mid-commit, silently; only git notices.
 
 ## The four options
 
 - **A — one machine, git database outside the sync folder** (`--separate-git-dir`).
   *Recommended when it applies.* Works at any repo size. **Blunt warning:** the `.git` pointer
   file holds an **absolute path**, which binds the repo to this machine — on a second computer
-  git will fail outright, or, worse, find a *different* repo living at that path, while the
-  sync client keeps syncing the working tree regardless, so edits made elsewhere show up as
-  uncommitted changes with no history behind them.
+  git fails, or finds a *different* repo at that path, while the working tree keeps syncing, so
+  edits made there arrive as uncommitted changes with no history behind them.
 - **B — several machines, git database *inside* the sync folder.** The simplest multi-machine
   option, and the only one where gitignored material (data, workspaces, model outputs) travels
   between machines too — usually the whole reason the project is in a sync folder. **Degrades
@@ -59,3 +52,9 @@ notices, later.
   starting work each session; this catches divergence, it does not make multi-machine editing
   safe."
 - D: "No git — sync history is the only history; `tracker-close` skips the commit step."
+
+## Existing repo
+
+Change nothing in git. If `.git` is a file pointing outside the sync folder, ask: one machine is
+A, several C. Otherwise warn of the hazard and ask: several is B; for one, suggest moving
+the database out by hand (`git init --separate-git-dir`), then record A if they do, else B.
