@@ -313,7 +313,9 @@ nobody made by hand — and `git pull`, which refuses to overwrite edited files,
 starts with `git fetch`, which downloads the history without touching the files, and then points the
 history at what was pushed. A clean status afterwards proves the sync client delivered exactly that;
 anything else means sync is still running or the other machine left work uncommitted, and the agent
-stops and says so rather than guessing.
+stops and says so rather than guessing. Commits this machine made but never pushed are left in
+place: a clean tree on top of them can only be its own work, while on the other machine the same
+files arrive as uncommitted edits and stop it.
 
 The approach I use mostly sidesteps the multi-computer half of the problem: Claude Code works on a
 project from a single, always-on machine in my office, and I reach that machine from my laptop or

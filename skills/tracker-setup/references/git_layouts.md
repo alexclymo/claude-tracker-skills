@@ -24,15 +24,15 @@ Under A–C all working files sync, gitignored ones too.
 ## Applying the choice
 
 - **A:** `mkdir -p "$HOME/git-repos" && git init -b main --separate-git-dir="$HOME/git-repos/<project-name>.git"`.
-  Tell the user: files keep syncing; `.git` becomes a pointer *file* to a database outside.
+  Tell the user: files keep syncing; `.git` becomes a pointer *file*.
 - **B:** plain `git init -b main`, inside the sync folder as normal.
 - **C:** A's command, then rewrite `.git` as `gitdir: <path>`, the database's `os.path.relpath`
   from the project folder; check `git status` works. Add the private remote; push the first
   commit. Each other machine, once: `mkdir -p "$HOME/git-repos" && git clone --no-checkout
   --separate-git-dir="$HOME/git-repos/<project-name>.git" <remote> "$(mktemp -d)/x"`, then the
   sync check. Never run `git init` in the synced folder there: it rewrites `.git` for every machine.
-  If you can message a session on the other machine (Claude Code: Remote Control), say setup is
-  easier coordinated; ask the user to connect one there and tell you its name.
+  If you can message a session on the other machine (Claude Code: Remote Control), ask the user
+  to connect one and name it; setup is easier coordinated.
 - **D:** run no git command. Tell the user `tracker/` will not be under version control; still
   write a `.gitignore`.
 
@@ -43,10 +43,10 @@ Under A–C all working files sync, gitignored ones too.
 - B: "Several machines; git database lives inside the sync folder — let sync finish before
   switching machines, never work from two at once; check sync status at each session start."
 - C: "Several machines; a git database on each, relative `.git` pointer, private remote. Before any
-  work: `git fetch`; stop if `git log origin/main..HEAD` lists commits; `git reset --mixed
-  origin/main`; stop unless `git status --porcelain` is empty: sync is lagging or the other
-  machine left work uncommitted. On a stop, tell the human; never commit, discard, or pull. Close
-  always pushes. Never work from two machines at once."
+  work: `git fetch`; stop if HEAD and `origin/main` have diverged; unless HEAD is only ahead,
+  `git reset --mixed origin/main` (even when level); stop unless `git status --porcelain` is
+  empty: sync is lagging or the other machine left work uncommitted. On a stop, tell the human;
+  never commit, discard, or pull. Close always pushes. Never work from two machines at once."
 - D: "No git — sync history is the only history; `tracker-close` skips the commit step."
 
 ## Existing repo

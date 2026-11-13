@@ -17,6 +17,14 @@ Two months of daily use said the system worked but had become expensive to run. 
 ceremony: a quiet close, a smaller audit, no decisions ledger, and rules that live in the skills so
 fixes reach existing trackers.
 
+### 2026-11-13 — unpushed commits no longer stop the same machine
+
+- **Changed:** C's session-start check stopped whenever local commits were unpushed, so a session
+  that committed without pushing stopped the next one on the *same* machine. It now stops only
+  when HEAD and the remote have diverged. Unpushed commits are kept, and the clean-tree check still
+  catches the other machine, where those commits arrive as uncommitted edits.
+- **Migrating:** replace a C project's `Git layout` line by hand with the new reminder.
+
 ### 2026-11-13 — several machines via a remote
 
 - **Layout C now works, and is recommended for several machines.** Its setup step for a second
