@@ -128,7 +128,8 @@ If you installed them at the user level and work from more than one computer, in
 that directory is per-machine and doesn't sync. And if the project you're tracking already lives in a
 cloud-synced folder (Dropbox, iCloud, …) that you open from several machines, read [the git caveat in
 `DESIGN.md`](DESIGN.md#git-and-the-cloud-sync-caveat) before running `tracker-setup` — the git layout
-there needs a deliberate choice.
+there needs a deliberate choice. To move an existing project from one machine to several later, ask
+your agent to follow `tracker-setup/references/git_layouts.md`.
 
 **Copy all three skill directories, not just the one you think you need:** `tracker-close` and
 `tracker-audit` read their templates and checks from `tracker-setup/references/` at runtime.

@@ -17,6 +17,20 @@ Two months of daily use said the system worked but had become expensive to run. 
 ceremony: a quiet close, a smaller audit, no decisions ledger, and rules that live in the skills so
 fixes reach existing trackers.
 
+### 2026-11-13 — several machines via a remote
+
+- **Layout C now works, and is recommended for several machines.** Its setup step for a second
+  machine failed: the synced `.git` pointer named the first machine's path. C now uses a relative
+  pointer, so usernames may differ, and builds each other machine's database by cloning the remote.
+  Its `CLAUDE.md` reminder carries a session-start check: fetch, stop on unpushed commits, align
+  with the remote, stop unless the synced files match it. Close says plainly when anything is left
+  unpushed.
+- **Fixed:** `git_layouts.md` said gitignored files do not travel under C. They do; the working
+  folder syncs.
+- **Migrating:** a project already recorded as layout C keeps its old reminder, since audit never
+  regenerates `## Project settings`. Replace that line by hand with C's new reminder from
+  `git_layouts.md`.
+
 ### 2026-11-13 — existing repos in a sync folder
 
 - **`tracker-setup` now warns about an existing repo in a cloud-sync folder.** Before, the

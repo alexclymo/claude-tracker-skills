@@ -51,7 +51,7 @@ wc -w tracker/PRIORITIES.md         # ≤ 2,000
 ```
 
 These are your own writes, so fix a failure now: refresh the head, move anything that landed below
-the log back above it, demote a PRIORITIES bullet into a detail file. Fix it and say nothing.
+the log back above it, demote a PRIORITIES bullet into a detail file.
 Nothing else is checked.
 
 ## 4. Drift
@@ -76,8 +76,9 @@ git add tracker/ && git commit -m "<one line: what this session's tracker change
 Then code, per the recorded preference: `auto` — commit changes outside `tracker/` as a second,
 separate commit; `ask` — ask once; `never` — leave them. Never fold code into the tracker commit.
 Push only when `Repo visibility` is `private` and a remote exists — but not if `gh repo view
---json visibility` says `PUBLIC`; then say so in one line. A plain commit or push needs no
-permission; only history rewrites do.
+--json visibility` says `PUBLIC`; then say so in one line. Layout C: one line if anything stays
+uncommitted or unpushed; the next session elsewhere will stop. Only history rewrites need
+permission.
 
 ## Output
 
@@ -89,5 +90,5 @@ Committed tracker/ as a1b2c3d. Code left uncommitted per settings.
 Next session: pick up T112 — write the implementation plan from the approved spec.
 ```
 
-The drift line appears only when there is drift. The last line is always the next-session pointer,
+The last line is always the next-session pointer,
 taken from what PRIORITIES now says; if nothing is queued, say so.

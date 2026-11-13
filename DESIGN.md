@@ -301,18 +301,29 @@ There is no perfectly clean answer, so `tracker-setup` doesn't pick one. It dete
 path, asks whether you work from one machine or several, and lays out four options with their
 trade-offs: the git database *outside* the sync folder (one machine — recommended where it applies);
 *inside* it (simplest for several machines, but it degrades as the repo grows); a separate database
-plus a shared remote on every machine (holds up at size, but easy to get subtly wrong); or no git at
+on every machine plus a shared private remote (recommended for several machines: the remote carries
+the history, and each session starts by checking that git and the synced files agree); or no git at
 all (sync history is then the only history). Whichever you pick, the choice and a one-line reminder of
 its pitfall are written into `CLAUDE.md`, so later sessions know the ground they stand on.
 
-The approach I use sidesteps the multi-computer half of the problem entirely: Claude Code only ever
-works on a project from a single, always-on machine in my office, and I reach that machine from my
-laptop or phone over `/remote-control` or SSH. The tracker git is set up using the first option: the git
-database is only stored on my always-on machine, in a folder outside of Dropbox, and synced to a
-remote copy on GitHub for safety. When away from the office, I work on or view my files from my other
-devices using Dropbox — while talking to Claude over remote — and these files get instantly synced
-back to my always-on machine via Dropbox, where Claude Code then deals with the git history
-automatically as part of its tracker process.
+The several-machine option rests on one move worth explaining. Under it, the files and the history
+travel separately: the sync client carries the files, the remote carries the history. On arriving at
+the second machine, the files are already new while git's history is still old, so git sees edits
+nobody made by hand — and `git pull`, which refuses to overwrite edited files, stops. So each session
+starts with `git fetch`, which downloads the history without touching the files, and then points the
+history at what was pushed. A clean status afterwards proves the sync client delivered exactly that;
+anything else means sync is still running or the other machine left work uncommitted, and the agent
+stops and says so rather than guessing.
+
+The approach I use mostly sidesteps the multi-computer half of the problem: Claude Code works on a
+project from a single, always-on machine in my office, and I reach that machine from my laptop or
+phone over `/remote-control` or SSH. The git database lives on that machine, outside Dropbox, with a
+remote copy on GitHub. When away from the office, I work on or view my files from my other devices
+using Dropbox — while talking to Claude over remote — and they sync straight back to the office
+machine, where Claude Code handles the git history as part of its tracker process. For the
+occasional day when the office machine is busy or unreachable, my projects use the several-machine
+option, so a home machine can pick up the work, with the session-start check confirming it starts
+from what was last pushed.
 
 ## Private repos, and publishing
 

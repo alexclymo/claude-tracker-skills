@@ -4,57 +4,57 @@ Read by `tracker-setup` only when the project's absolute path contains `Dropbox`
 `OneDrive`, or `Google Drive`. Present the four options compactly, ask "Will you work on this
 project from more than one computer?", and apply the one the user picks. Never choose for them.
 The hazard: a sync client can corrupt or delete `.git` mid-commit, silently; only git notices.
+Under A–C all working files sync, gitignored ones too.
 
 ## The four options
 
 - **A — one machine, git database outside the sync folder** (`--separate-git-dir`).
-  *Recommended when it applies.* Works at any repo size. **Blunt warning:** the `.git` pointer
-  file holds an **absolute path**, which binds the repo to this machine — on a second computer
-  git fails, or finds a *different* repo at that path, while the working tree keeps syncing, so
-  edits made there arrive as uncommitted changes with no history behind them.
+  *Recommended for one machine.* The `.git` pointer file holds an **absolute path**, binding the
+  repo to this machine: on a second computer git fails, though edits there still sync back.
 - **B — several machines, git database *inside* the sync folder.** The simplest multi-machine
-  option, and the only one where gitignored material (data, workspaces, model outputs) travels
-  between machines too — usually the whole reason the project is in a sync folder. **Degrades
-  as the repo grows:** sync churn on `.git` risks silent corruption, and the risk is *higher*
-  multi-machine, since two machines can touch `.git` mid-sync. Rule: let the sync client finish
-  before switching machines, never work from two at once. Suitable for small projects only.
-- **C — several machines, separate-git-dir on each, shared remote.** Holds up at any size but
-  demands clean setup on every machine and disciplined pull-before/push-after every session.
-  **Strongly discouraged** — easy to get subtly wrong. Gitignored material does NOT travel this
-  way.
-- **D — no git at all.** Sync history is the only history. Always available; the honest choice
-  for someone not at ease with git. Costs: no traceability, no revert, and
-  `tracker-close` loses its commit duty.
+  option. **Degrades as the repo grows:** sync churn risks silently corrupting `.git`. Let sync
+  finish before switching machines; never work from two at once. Small projects, or no remote.
+- **C — several machines, a git database outside the sync folder on each, shared remote.**
+  *Recommended for several machines.* Needs a **private** remote to carry history. Each session
+  starts with the reminder's sync check. Its relative pointer needs the sync folder at the same
+  place under each home; moving the project breaks it loudly.
+- **D — no git at all.** Sync history is the only history: the honest choice for someone not at
+  ease with git. Costs: no traceability, no revert, and close loses its commit duty.
 
 ## Applying the choice
 
 - **A:** `mkdir -p "$HOME/git-repos" && git init -b main --separate-git-dir="$HOME/git-repos/<project-name>.git"`.
-  Tell the user plainly: working files stay in the project folder and keep syncing normally;
-  `.git` there becomes a small pointer *file* reading `gitdir: $HOME/git-repos/<project-name>.git`;
-  the real object database lives outside the sync folder entirely.
+  Tell the user: files keep syncing; `.git` becomes a pointer *file* to a database outside.
 - **B:** plain `git init -b main`, inside the sync folder as normal.
-- **C:** run A's command on *this* machine; tell the user every other machine needs its own
-  `git init -b main --separate-git-dir=...` pointed outside its own sync folder, plus a shared
-  remote (`tracker-setup` offers to set one up).
-- **D:** run no git command at all. Tell the user plainly that `tracker/` will not be under
-  version control and sync history is the only history from here on; a `.gitignore` is still
-  worth writing for editor/tooling hygiene even without git.
+- **C:** A's command, then rewrite `.git` as `gitdir: <path>`, the database's `os.path.relpath`
+  from the project folder; check `git status` works. Add the private remote; push the first
+  commit. Each other machine, once: `mkdir -p "$HOME/git-repos" && git clone --no-checkout
+  --separate-git-dir="$HOME/git-repos/<project-name>.git" <remote> "$(mktemp -d)/x"`, then the
+  sync check. Never run `git init` in the synced folder there: it rewrites `.git` for every machine.
+  If you can message a session on the other machine (Claude Code: Remote Control), say setup is
+  easier coordinated; ask the user to connect one there and tell you its name.
+- **D:** run no git command. Tell the user `tracker/` will not be under version control; still
+  write a `.gitignore`.
 
 ## The reminder written into `## Project settings`
 
-- A: "One machine; git database lives outside the sync folder via an absolute-path pointer —
-  this repo will not work from a second machine without redoing setup there."
+- A: "One machine; git database outside the sync folder via an absolute-path pointer. Adding a
+  machine means moving to C (`tracker-setup`'s `git_layouts.md`)."
 - B: "Several machines; git database lives inside the sync folder — let sync finish before
-  switching machines, never work from two at once. Check sync status before starting work each
-  session; this catches divergence, it does not make multi-machine editing safe."
-- C: "Several machines; separate git database on each, shared remote — pull before and push
-  after every session; gitignored files do not travel this way. Check the remote before
-  starting work each session; this catches divergence, it does not make multi-machine editing
-  safe."
+  switching machines, never work from two at once; check sync status at each session start."
+- C: "Several machines; a git database on each, relative `.git` pointer, private remote. Before any
+  work: `git fetch`; stop if `git log origin/main..HEAD` lists commits; `git reset --mixed
+  origin/main`; stop unless `git status --porcelain` is empty: sync is lagging or the other
+  machine left work uncommitted. On a stop, tell the human; never commit, discard, or pull. Close
+  always pushes. Never work from two machines at once."
 - D: "No git — sync history is the only history; `tracker-close` skips the commit step."
 
 ## Existing repo
 
 Change nothing in git. If `.git` is a file pointing outside the sync folder, ask: one machine is
-A, several C. Otherwise warn of the hazard and ask: several is B; for one, suggest moving
-the database out by hand (`git init --separate-git-dir`), then record A if they do, else B.
+A; several is C — apply C from the pointer rewrite on. Otherwise warn of the hazard and ask:
+several is B; for one, suggest moving the database out by hand (`git init --separate-git-dir`),
+then record A if they do, else B.
+
+**A to C, asked for later:** commit and push; apply C from the pointer rewrite on; replace the
+`Git layout` line under `## Project settings` with C's reminder.
