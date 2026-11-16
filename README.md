@@ -223,4 +223,5 @@ skills: a quieter close, a smaller audit, and no decisions ledger.
 
 [`CHANGELOG.md`](CHANGELOG.md) records what has changed and when. The version numbers there are
 tracker *format* versions rather than a release count, so the first public release was v2 and the
-current format is v3.
+current format is v3. Releases within a format are numbered `3.1`, `3.2`, …; since 3.5 that number
+is the stamp in each project's `CLAUDE.md` block. The current release is 3.7.
