@@ -138,8 +138,8 @@ your agent to follow `tracker-setup/references/git_layouts.md`.
 (or the project-local equivalent) — then copy, so that files a newer version dropped go with them.
 Each project's `CLAUDE.md` block records the version of its tracker files, `tracker-format: 3.N`.
 `tracker-close` says in one line when your installed skills are older or newer than the project, and
-`tracker-audit` checks this repo's latest release on GitHub before it changes anything — a fork's
-copy checks this repo too, unless you change the address in `tracker-audit`.
+`tracker-audit` also tells you when this repo has a newer release on GitHub; upgrading is up to
+you. A fork's copy checks this repo too, unless you change the address in `tracker-audit`.
 
 **What the skills do to git without asking:** `tracker-setup` makes one commit of `tracker/` and
 `CLAUDE.md`; `tracker-close` commits `tracker/` at every session end and, in a repo recorded as

@@ -27,9 +27,9 @@ curl -fsS --max-time 10 https://raw.githubusercontent.com/alexclymo/claude-track
 
 This skill's version is the stamp in `claude_md_block.md`; the project's is in `CLAUDE.md`
 (`grep -o 'tracker-format: [0-9.]*'`). Compare major, then `N` in `3.N`, as integers; a bare `3` is
-3.0. If the release or the project is newer than this skill, stop before anything else: name the
-versions and say to install skills at least as new as the highest, then rerun. If the fetch fails,
-say so in one line and go on.
+3.0. If the project is newer than this skill, stop before anything else: name both and say to
+install skills at least that new, then rerun. If only the release is newer, say so in one line —
+upgrading is the user's choice — and go on. If the fetch fails, say so in one line and go on.
 
 No stamp in the project means format 1; no block at all is format 1 too, and the migration's step 4
 adds the block. Below 3: the migration (last section) is the first item of your report, and the rest

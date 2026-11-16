@@ -10,13 +10,21 @@ there is no public v1. Format 1 was the informal version of this system I used o
 before the skills existed; it was never published. A release that changes the format bumps the
 number; releases that don't get a dated sub-entry under the current one, numbered `3.1`, `3.2`, ….
 Since 3.5 that number is also the `tracker-format` stamp, which the skills compare to catch a stale
-install. The current version is **3.5**.
+install. The current version is **3.6**.
 
 ## v3 — 2026-09-10
 
 Two months of daily use said the system worked but had become expensive to run. v3 cuts the
 ceremony: a quiet close, a smaller audit, no decisions ledger, and rules that live in the skills so
 fixes reach existing trackers.
+
+### 3.6 — 2026-11-16 — upgrading is your choice
+
+- **Changed:** `tracker-audit` no longer stops when GitHub has a newer release than your installed
+  skills. It says so in one line and carries on: staying on a version you are happy with is fine.
+  It still stops when the project itself is newer than your skills, since older skills would
+  rewrite files a newer version wrote.
+- **Migrating:** nothing by hand; the next `tracker-audit` brings a project's stamp to `3.6`.
 
 ### 3.5 — 2026-11-16 — version check
 
