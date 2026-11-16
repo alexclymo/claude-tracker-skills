@@ -35,11 +35,11 @@ No stamp in the project means format 1; no block at all is format 1 too, and the
 adds the block. Below 3: the migration (last section) is the first item of your report, and the rest
 of the audit reads the files as they are. At 3: compare the headers of INDEX (everything above
 `## The path forward`) and PRIORITIES (above `## Notes for next session`) and the CLAUDE.md block
-(from the line starting `<!-- BEGIN tracker` through `<!-- END tracker -->`) against the templates
-and `claude_md_block.md`. JOURNAL and ARCHIVE are append-only and never regenerated. If any differ,
-queue a regeneration for step 6 — replace the region, keep PRIORITIES' `*Last updated:*` date,
-touch nothing outside it — and say so in one line, naming the version it brings the project to. It
-is not a finding.
+(from the line starting `<!-- BEGIN tracker` through `<!-- END tracker -->`, whole lines in both
+files, never a first substring hit) against the templates and `claude_md_block.md`. JOURNAL and
+ARCHIVE are append-only and never regenerated. If any differ, queue a regeneration for step 6 —
+replace the region, keep PRIORITIES' `*Last updated:*` date, touch nothing outside it — and say so
+in one line, naming the version it brings the project to. It is not a finding.
 
 ## 3. Three looks
 
@@ -119,7 +119,9 @@ abandon anything `blocked` on them; leave Progress logs and `Recent sessions` al
 history. Refresh every `Refreshed:` date you touch.
 
 Regeneration queued in step 2 is its own yes/no question, asked once after the last block or when
-the walkthrough is declined, stating what the replaced region drops; apply it only on yes.
+the walkthrough is declined, stating what the replaced region drops; apply it only on yes. Copy
+`CLAUDE.md` to scratch first, then diff against that copy: only the block may differ, else
+restore.
 
 Commit `tracker/` and `CLAUDE.md` together, code comments separately, following the project's
 `## Project settings` exactly as `tracker-close` does: layout D, or a gitignored tracker, skips the
@@ -146,7 +148,7 @@ on an explicit yes.
    a `D##` to point at the task or the archive instead, refreshing that head's date; repoint or drop
    any link to a file this migration deleted. Progress logs, `Recent sessions` and JOURNAL are
    history: leave their wording.
-4. Replace the CLAUDE.md block with `claude_md_block.md`'s, or
+4. Replace the CLAUDE.md block with `claude_md_block.md`'s as in step 6, or
    add it after the project's own text if there is none; `## Project settings` is untouched. Grep
    the rest of `CLAUDE.md` for `DECISIONS` and `D##`; report hits.
 5. Commit `tracker/` and `CLAUDE.md` together, exactly as step 6 does — layout D, or a gitignored

@@ -10,13 +10,23 @@ there is no public v1. Format 1 was the informal version of this system I used o
 before the skills existed; it was never published. A release that changes the format bumps the
 number; releases that don't get a dated sub-entry under the current one, numbered `3.1`, `3.2`, ….
 Since 3.5 that number is also the `tracker-format` stamp, which the skills compare to catch a stale
-install. The current version is **3.6**.
+install. The current version is **3.7**.
 
 ## v3 — 2026-09-10
 
 Two months of daily use said the system worked but had become expensive to run. v3 cuts the
 ceremony: a quiet close, a smaller audit, no decisions ledger, and rules that live in the skills so
 fixes reach existing trackers.
+
+### 3.7 — 2026-11-16 — safer block refresh
+
+- **Fixed:** refreshing the tracker block could overwrite it with a stray fragment. The note at the
+  top of `claude_md_block.md` quoted both markers, so an agent that searched for their first
+  occurrence copied the note instead of the block. The note now describes the markers without
+  quoting them, and `tracker-audit` says to match them as whole lines in both files.
+- **Added:** before replacing the block, `tracker-audit` copies `CLAUDE.md` to scratch space, then
+  diffs against the copy: if anything outside the block changed, it restores the copy.
+- **Migrating:** nothing by hand; the next `tracker-audit` brings a project's stamp to `3.7`.
 
 ### 3.6 — 2026-11-16 — upgrading is your choice
 
