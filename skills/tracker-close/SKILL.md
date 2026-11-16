@@ -7,8 +7,8 @@ description: Use when ending a session, closing out, wrapping up and updating th
 
 Writes the session's state into `tracker/` and commits it. It never refuses to close: it ends in a
 commit, or in one plain sentence saying why there is none. Output is at most eight lines — what
-changed, one drift sentence if any, the commit, and what to pick up next. Report failures only;
-never print numbers, check results, or files that passed.
+changed, a drift sentence and a version line if any, the commit, and what to pick up next. Report
+failures only; never print numbers, check results, or files that passed.
 
 The rules you are keeping are in the project's `CLAUDE.md` block. The templates and the checks this
 skill uses are in `../tracker-setup/references/`, relative to this skill's own directory.
@@ -52,7 +52,6 @@ wc -w tracker/PRIORITIES.md         # ≤ 2,000
 
 These are your own writes, so fix a failure now: refresh the head, move anything that landed below
 the log back above it, demote a PRIORITIES bullet into a detail file.
-Nothing else is checked.
 
 ## 4. Drift
 
@@ -62,7 +61,14 @@ a `## Current state` that plainly contradicts the log beneath it — say so in o
 file, and suggest `tracker-audit`. Report what you noticed in passing; do not go looking. Never on
 size, and never as a general "the docs could use a look". If you saw nothing, say nothing.
 
-## 5. Commit
+## 5. Version
+
+The stamp `tracker-format: 3.N` in `claude_md_block.md` is these skills' version; the one in
+`CLAUDE.md` is the project's. Compare major, then `N`, as integers; a bare `3` is 3.0, no stamp is
+older than any. Equal: say nothing. Otherwise one line naming both — skills older: reinstall them;
+skills newer: run `tracker-audit` to bring the project up to date. Never edit the stamp.
+
+## 6. Commit
 
 Read `## Project settings` in `CLAUDE.md`. If the git layout is D, say in one sentence that the
 tracker's history is the sync folder's and stop here. No `Repo visibility` line: ask once, private

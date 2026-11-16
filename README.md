@@ -134,9 +134,12 @@ your agent to follow `tracker-setup/references/git_layouts.md`.
 **Copy all three skill directories, not just the one you think you need:** `tracker-close` and
 `tracker-audit` read their templates and checks from `tracker-setup/references/` at runtime.
 
-**Upgrading from v2:** delete the old skill directories first — `rm -r ~/.claude/skills/tracker-*`
-(or the project-local equivalent) — then copy, so that `tracker-supersede` and the retired
-reference files go with them.
+**Upgrading:** pull your clone, delete the old skill directories — `rm -r ~/.claude/skills/tracker-*`
+(or the project-local equivalent) — then copy, so that files a newer version dropped go with them.
+Each project's `CLAUDE.md` block records the version of its tracker files, `tracker-format: 3.N`.
+`tracker-close` says in one line when your installed skills are older or newer than the project, and
+`tracker-audit` checks this repo's latest release on GitHub before it changes anything — a fork's
+copy checks this repo too, unless you change the address in `tracker-audit`.
 
 **What the skills do to git without asking:** `tracker-setup` makes one commit of `tracker/` and
 `CLAUDE.md`; `tracker-close` commits `tracker/` at every session end and, in a repo recorded as

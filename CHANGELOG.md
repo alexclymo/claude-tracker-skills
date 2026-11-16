@@ -8,8 +8,9 @@ grouped under **Added** / **Changed** / **Fixed** / **Removed**.
 `tracker-format` value that release scaffolds and expects, so the first public release is **v2** —
 there is no public v1. Format 1 was the informal version of this system I used on my own projects
 before the skills existed; it was never published. A release that changes the format bumps the
-number; releases that don't get a dated sub-entry under the current one. The current format is
-**v3**.
+number; releases that don't get a dated sub-entry under the current one, numbered `3.1`, `3.2`, ….
+Since 3.5 that number is also the `tracker-format` stamp, which the skills compare to catch a stale
+install. The current version is **3.5**.
 
 ## v3 — 2026-09-10
 
@@ -17,7 +18,20 @@ Two months of daily use said the system worked but had become expensive to run. 
 ceremony: a quiet close, a smaller audit, no decisions ledger, and rules that live in the skills so
 fixes reach existing trackers.
 
-### 2026-11-13 — unpushed commits no longer stop the same machine
+### 3.5 — 2026-11-16 — version check
+
+- **Added:** the `tracker-format` stamp now carries the release, `3.N`, so the skills can tell a
+  stale install from a project that needs updating. `tracker-close` compares its own version with
+  the project's after its work and adds one line: reinstall the skills, or run `tracker-audit`. It
+  never changes the stamp. `tracker-audit` first reads the latest release's stamp from this repo on
+  GitHub; if the installed skills are older than that or than the project, it stops before writing
+  and says to update and reinstall. Offline, it says so and carries on. When the project is older,
+  audit's existing block regeneration brings it up to date and sets the stamp.
+- **Migrating:** nothing by hand. A project's bare `3` reads as 3.0; the next `tracker-audit`
+  regenerates the block, which sets `3.5`. Reinstall the skills on every machine once: earlier
+  skills have no check, so they cannot warn you.
+
+### 3.4 — 2026-11-13 — unpushed commits no longer stop the same machine
 
 - **Changed:** C's session-start check stopped whenever local commits were unpushed, so a session
   that committed without pushing stopped the next one on the *same* machine. It now stops only
@@ -25,7 +39,7 @@ fixes reach existing trackers.
   catches the other machine, where those commits arrive as uncommitted edits.
 - **Migrating:** replace a C project's `Git layout` line by hand with the new reminder.
 
-### 2026-11-13 — several machines via a remote
+### 3.3 — 2026-11-13 — several machines via a remote
 
 - **Layout C now works, and is recommended for several machines.** Its setup step for a second
   machine failed: the synced `.git` pointer named the first machine's path. C now uses a relative
@@ -39,7 +53,7 @@ fixes reach existing trackers.
   regenerates `## Project settings`. Replace that line by hand with C's new reminder from
   `git_layouts.md`.
 
-### 2026-11-13 — existing repos in a sync folder
+### 3.2 — 2026-11-13 — existing repos in a sync folder
 
 - **`tracker-setup` now warns about an existing repo in a cloud-sync folder.** Before, the
   git-layout question was asked only when setup created the repo itself, so the commonest case, an
@@ -47,7 +61,7 @@ fixes reach existing trackers.
   it asks, records a layout and its reminder, and for a one-machine project with `.git` inside the
   sync folder suggests moving the database out by hand.
 
-### 2026-10-15 — private repos only
+### 3.1 — 2026-10-15 — private repos only
 
 - **The system now says plainly that it is for private repos**, or ones shared only with close
   collaborators, and advises a new repo for any public production work. A new README section and a

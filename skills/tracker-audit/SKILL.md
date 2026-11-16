@@ -19,15 +19,27 @@ only when asked, adds closed tasks' files and code comments. State the scope in 
 
 ## 2. Format
 
-Read the stamp: `grep -o 'tracker-format: [0-9]*' CLAUDE.md`. No stamp means format 1; no block at
-all is format 1 too, and the migration's step 4 adds the block. Below 3: the migration (last
-section) is the first item of your report, and the rest of the audit reads the files as they are. At
-3: compare the headers of INDEX (everything above `## The path forward`) and PRIORITIES (above `##
-Notes for next session`) and the CLAUDE.md block (from the line starting `<!-- BEGIN tracker`
-through `<!-- END tracker -->`) against the templates and `claude_md_block.md`. JOURNAL and ARCHIVE
-are append-only and never regenerated. If any differ, queue a regeneration for step 6 — replace the
-region, keep PRIORITIES' `*Last updated:*` date, touch nothing outside it — and say so in one line.
-It is not a finding.
+First the release, from the public repo:
+
+```bash
+curl -fsS --max-time 10 https://raw.githubusercontent.com/alexclymo/claude-tracker-skills/main/skills/tracker-setup/references/claude_md_block.md | grep -o 'tracker-format: [0-9.]*'
+```
+
+This skill's version is the stamp in `claude_md_block.md`; the project's is in `CLAUDE.md`
+(`grep -o 'tracker-format: [0-9.]*'`). Compare major, then `N` in `3.N`, as integers; a bare `3` is
+3.0. If the release or the project is newer than this skill, stop before anything else: name the
+versions and say to install skills at least as new as the highest, then rerun. If the fetch fails,
+say so in one line and go on.
+
+No stamp in the project means format 1; no block at all is format 1 too, and the migration's step 4
+adds the block. Below 3: the migration (last section) is the first item of your report, and the rest
+of the audit reads the files as they are. At 3: compare the headers of INDEX (everything above
+`## The path forward`) and PRIORITIES (above `## Notes for next session`) and the CLAUDE.md block
+(from the line starting `<!-- BEGIN tracker` through `<!-- END tracker -->`) against the templates
+and `claude_md_block.md`. JOURNAL and ARCHIVE are append-only and never regenerated. If any differ,
+queue a regeneration for step 6 — replace the region, keep PRIORITIES' `*Last updated:*` date,
+touch nothing outside it — and say so in one line, naming the version it brings the project to. It
+is not a finding.
 
 ## 3. Three looks
 
@@ -134,7 +146,7 @@ on an explicit yes.
    a `D##` to point at the task or the archive instead, refreshing that head's date; repoint or drop
    any link to a file this migration deleted. Progress logs, `Recent sessions` and JOURNAL are
    history: leave their wording.
-4. Replace the CLAUDE.md block with `claude_md_block.md`'s, which carries `tracker-format: 3`, or
+4. Replace the CLAUDE.md block with `claude_md_block.md`'s, or
    add it after the project's own text if there is none; `## Project settings` is untouched. Grep
    the rest of `CLAUDE.md` for `DECISIONS` and `D##`; report hits.
 5. Commit `tracker/` and `CLAUDE.md` together, exactly as step 6 does — layout D, or a gitignored
